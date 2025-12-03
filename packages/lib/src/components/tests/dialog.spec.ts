@@ -43,15 +43,6 @@ describe('DialogComponent', () => {
   };
 
   const mockOptions: WidgetOptions = {
-    autoload: true,
-    autoplay: false,
-    info: {
-      bottom: [],
-      left: [],
-      over: [],
-      right: [],
-      top: [],
-    },
     playbackMode: 'modal' as const,
     playerConfigurationGuid: 'test-config',
     playIcon: {
@@ -259,10 +250,10 @@ describe('DialogComponent', () => {
     });
   });
 
-  it('should execute autoplay URL modification when autoplay is true', async () => {
+  it('should execute autoplay URL modification when playbackMode is inline-autoplay', async () => {
     const optionsWithAutoplay: WidgetOptions = {
       ...mockOptions,
-      autoplay: true,
+      playbackMode: 'inline-autoplay',
     };
 
     render(createElement(DialogComponent, {
@@ -282,10 +273,10 @@ describe('DialogComponent', () => {
     });
   });
 
-  it('should execute autoplay URL modification when autoplay is false', async () => {
+  it('should execute autoplay URL modification when playbackMode is inline', async () => {
     const optionsWithAutoplayFalse: WidgetOptions = {
       ...mockOptions,
-      autoplay: false,
+      playbackMode: 'inline',
     };
 
     render(createElement(DialogComponent, {
@@ -305,10 +296,10 @@ describe('DialogComponent', () => {
     });
   });
 
-  it('should skip autoplay URL modification when autoplay is null', async () => {
+  it('should skip autoplay URL modification when playbackMode is inline-autoload', async () => {
     const optionsWithAutoplayNull: WidgetOptions = {
       ...mockOptions,
-      autoplay: null as unknown as boolean,
+      playbackMode: 'inline-autoload',
     };
 
     render(createElement(DialogComponent, {

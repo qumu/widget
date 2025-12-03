@@ -17,14 +17,7 @@ describe('PresentationWidget', () => {
     host: 'example.com',
     selector: '.widget-container',
     widgetOptions: {
-      autoload: false,
-      info: {
-        bottom: [],
-        left: [],
-        over: [],
-        right: [],
-        top: [],
-      },
+      playbackMode: 'inline',
     },
   };
 
