@@ -38,6 +38,7 @@ describe('ThumbnailComponent', () => {
     it('should render thumbnail button with image', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
+        options: {} as WidgetOptions,
         presentation: mockPresentation,
       }));
 
@@ -62,6 +63,7 @@ describe('ThumbnailComponent', () => {
 
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
+        options: {} as WidgetOptions,
         presentation: presentationWithoutCdn,
       }));
 
@@ -75,6 +77,7 @@ describe('ThumbnailComponent', () => {
     it('should render default play icon when no custom play icon is provided', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
+        options: {} as WidgetOptions,
         presentation: mockPresentation,
       }));
 
@@ -178,6 +181,7 @@ describe('ThumbnailComponent', () => {
     it('should call onClick handler when thumbnail is clicked', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
+        options: {} as WidgetOptions,
         presentation: mockPresentation,
       }));
 
@@ -191,6 +195,7 @@ describe('ThumbnailComponent', () => {
     it('should call onClick handler multiple times when clicked multiple times', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
+        options: {} as WidgetOptions,
         presentation: mockPresentation,
       }));
 
@@ -205,22 +210,6 @@ describe('ThumbnailComponent', () => {
   });
 
   describe('Edge Cases', () => {
-    it('should handle missing options gracefully', () => {
-      render(createElement(ThumbnailComponent, {
-        onClick: mockOnClick,
-        options: undefined,
-        presentation: mockPresentation,
-      }));
-
-      const button = screen.getByRole('button');
-      const image = screen.getByAltText('Thumbnail for Test Presentation');
-      const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button--default');
-
-      expect(button).toBeInTheDocument();
-      expect(image).toBeInTheDocument();
-      expect(playIcon).toBeInTheDocument();
-    });
-
     it('should handle partial play icon options', () => {
       const options = {
         playIcon: {
@@ -267,6 +256,7 @@ describe('ThumbnailComponent', () => {
     it('should have proper button type attribute', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
+        options: {} as WidgetOptions,
         presentation: mockPresentation,
       }));
 
@@ -278,6 +268,7 @@ describe('ThumbnailComponent', () => {
     it('should have descriptive alt text for thumbnail image', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
+        options: {} as WidgetOptions,
         presentation: mockPresentation,
       }));
 
