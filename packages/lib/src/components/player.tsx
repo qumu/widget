@@ -6,11 +6,11 @@ import { ThumbnailComponent } from './thumbnail';
 interface Props {
   presentation: Presentation;
   onIframeReady?: (iframe: HTMLIFrameElement) => void;
-  options?: WidgetOptions;
+  options: WidgetOptions;
 }
 
 export function PlayerComponent({ presentation, onIframeReady, options }: Readonly<Props>) {
-  const [showIframe, setShowIframe] = useState(options?.playbackMode === 'inline-autoload' || options?.playbackMode === 'inline-autoplay' || options?.playbackMode === 'modal');
+  const [showIframe, setShowIframe] = useState(['inline-autoload', 'inline-autoplay', 'modal'].includes(options.playbackMode));
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -31,16 +31,13 @@ export function PlayerComponent({ presentation, onIframeReady, options }: Readon
     };
   }, [showIframe]);
 
-  const url = new URL(presentation?.player || '');
+  const url = new URL(presentation.player || '');
+  const autoplay = options.playbackMode === 'inline-autoplay' || options.playbackMode === 'modal';
 
-  if (options) {
-    const autoplay = options?.playbackMode === 'inline-autoplay' || options?.playbackMode === 'modal';
+  url.searchParams.set('autoplay', autoplay.toString());
 
-    url.searchParams.set('autoplay', autoplay.toString());
-
-    if (options.playerConfigurationGuid) {
-      url.searchParams.set('playerConfigurationGuid', options.playerConfigurationGuid);
-    }
+  if (options.playerConfigurationGuid) {
+    url.searchParams.set('playerConfigurationGuid', options.playerConfigurationGuid);
   }
 
   const iframe = (

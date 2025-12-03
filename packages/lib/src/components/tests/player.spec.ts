@@ -26,7 +26,10 @@ describe('PlayerComponent', () => {
   it('should render empty content when presentation is null', async () => {
     // eslint-disable-next-line @typescript-eslint/require-await
     await expect(async () => {
-      const { container } = render(createElement(PlayerComponent, { presentation: null as unknown as Presentation }));
+      const { container } = render(createElement(PlayerComponent, {
+        options: {} as WidgetOptions,
+        presentation: null as unknown as Presentation,
+      }));
 
       expect(container.textContent).toMatch('');
     }).rejects.toThrow();
@@ -130,11 +133,24 @@ describe('PlayerComponent', () => {
     expect(onIframeReady).toHaveBeenCalledWith(iframe);
   });
 
-  it('should use playbackMode inline as default when options are not provided', () => {
-    render(createElement(PlayerComponent, { presentation: mockPresentation }));
+  it('should throw an error when no player parameter is provided in the presentation', async () => {
+    const options = {
+      playbackMode: 'inline-autoload',
+    } as WidgetOptions;
 
-    expect(screen.getByAltText('Thumbnail for Test Presentation')).toBeInTheDocument();
-    expect(screen.queryByTitle('Qumu Player')).not.toBeInTheDocument();
+    const presentation: Presentation = {
+      ...mockPresentation,
+      player: undefined,
+    };
+
+    await expect(async () => {
+      render(createElement(PlayerComponent, {
+        options,
+        presentation,
+      }));
+
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    }).rejects.toThrow();
   });
 
   describe('widgetOptions', () => {
