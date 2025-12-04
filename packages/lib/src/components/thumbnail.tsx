@@ -29,13 +29,13 @@ export function ThumbnailComponent({ presentation, onClick, options }: Readonly<
       {options.playIcon?.url ? (
         <img
             alt="Play"
-            class="qc-thumbnail__play-button"
+            class={`qc-thumbnail__play-button qc-thumbnail__play-button--${options.playIcon?.position || 'center'}`}
             src={options.playIcon?.url}
             style={playIconStyle}
         />
       ) : (
         <div
-            class="qc-thumbnail__play-button qc-thumbnail__play-button--default"
+            class={`qc-thumbnail__play-button qc-thumbnail__play-button--default qc-thumbnail__play-button--${options.playIcon?.position || 'center'}`}
             dangerouslySetInnerHTML={{ __html: options.playIcon?.url || playIcon }}
             style={playIconStyle}
         />

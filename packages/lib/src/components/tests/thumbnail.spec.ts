@@ -175,6 +175,27 @@ describe('ThumbnailComponent', () => {
 
       expect(playIcon?.getAttribute('style')).toBeNull();
     });
+
+    it('should position play icon based on options', () => {
+      const options = {
+        playIcon: {
+          height: 50,
+          position: 'bottom-right' as const,
+          url: 'https://example.com/custom-play-icon.png',
+          width: 50,
+        },
+      } as WidgetOptions;
+
+      render(createElement(ThumbnailComponent, {
+        onClick: mockOnClick,
+        options,
+        presentation: mockPresentation,
+      }));
+
+      const playIcon = screen.getByAltText('Play');
+
+      expect(playIcon).toHaveClass('qc-thumbnail__play-button--bottom-right');
+    });
   });
 
   describe('Click Interaction', () => {

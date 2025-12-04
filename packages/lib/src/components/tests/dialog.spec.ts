@@ -47,6 +47,7 @@ describe('DialogComponent', () => {
     playerConfigurationGuid: 'test-config',
     playIcon: {
       height: 64,
+      position: 'center',
       url: 'https://example.com/play-icon.svg',
       width: 64,
     },

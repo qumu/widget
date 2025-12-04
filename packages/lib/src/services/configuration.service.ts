@@ -62,6 +62,20 @@ export class ConfigurationService {
         throw new Error('`widgetOptions.playbackMode` must be either "inline", "inline-autoload", "inline-autoplay" or "modal"');
       }
     }
+
+    if (widgetOptions.playIcon !== undefined) {
+      if (widgetOptions.playIcon.position !== undefined) {
+        const validPositions = ['top-left', 'top', 'top-right', 'left', 'center', 'right', 'bottom-left', 'bottom', 'bottom-right'];
+
+        if (validPositions.indexOf(widgetOptions.playIcon.position) === -1) {
+          throw new Error('`widgetOptions.playIcon.position` must be a valid position value');
+        }
+      }
+
+      if (![undefined, 'inline', 'modal'].includes(widgetOptions.playbackMode)) {
+        console.warn('`widgetOptions.playIcon` is only applicable when `widgetOptions.playbackMode` is either "modal" or "inline"');
+      }
+    }
   }
 
   setDefaults(initialConfiguration: WidgetConfiguration): WidgetConfiguration {

@@ -443,6 +443,66 @@ describe('ConfigurationService', () => {
         expect(() => configurationService.validateWidgetOptions({ playbackMode: undefined })).not.toThrow();
       });
     });
+
+    describe('position validation', () => {
+      it('should accept valid playIcon.position values', () => {
+        const validPositions = ['center', 'top', 'top-right', 'right', 'bottom-right', 'bottom', 'bottom-left', 'left', 'top-left'];
+
+        validPositions.forEach((position) => {
+          expect(() => configurationService.validateWidgetOptions({
+            playIcon: { position: position as WidgetOptions['playIcon']['position'] },
+          } as WidgetOptions)).not.toThrow();
+        });
+      });
+
+      it('should allow undefined playIcon.position', () => {
+        expect(() => configurationService.validateWidgetOptions({
+          playIcon: {} as WidgetOptions['playIcon'],
+        })).not.toThrow();
+      });
+
+      it('should throw error when playIcon.position is invalid', () => {
+        const invalidPositions = ['middle', 'upper-left', 'bottom-center', '', 123, true, null, {}];
+
+        invalidPositions.forEach((position) => {
+          expect(() => configurationService.validateWidgetOptions({
+            playIcon: { position: position as unknown as WidgetOptions['playIcon']['position'] },
+          } as WidgetOptions)).toThrow(
+            '`widgetOptions.playIcon.position` must be a valid position value',
+          );
+        });
+      });
+    });
+
+    describe('playIcon validation', () => {
+      it('should warn when playIcon is used with unsupported playbackMode', () => {
+        const unsupportedModes = ['inline-autoload', 'inline-autoplay', undefined];
+
+        unsupportedModes.forEach((mode) => {
+          expect(() => configurationService.validateWidgetOptions({
+            playbackMode: mode,
+            playIcon: { url: 'https://example.com/play-icon.png' },
+          } as WidgetOptions)).not.toThrow();
+
+          expect(consoleWarnSpy).toHaveBeenCalledWith('`widgetOptions.playIcon` is only applicable when `widgetOptions.playbackMode` is either "modal" or "inline"');
+        });
+      });
+
+      it('should not warn when playIcon is used with supported playbackMode', () => {
+        const supportedModes = ['modal', 'inline'];
+
+        supportedModes.forEach((mode) => {
+          consoleWarnSpy.mockClear();
+
+          expect(() => configurationService.validateWidgetOptions({
+            playbackMode: mode as WidgetOptions['playbackMode'],
+            playIcon: { url: 'https://example.com/play-icon.png' },
+          } as WidgetOptions)).not.toThrow();
+
+          expect(consoleWarnSpy).not.toHaveBeenCalled();
+        });
+      });
+    });
   });
 
   describe('setDefaults', () => {
