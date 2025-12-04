@@ -32,7 +32,7 @@ export function PlayerComponent({ presentation, onIframeReady, options }: Readon
   }, [showIframe]);
 
   const url = new URL(presentation.player || '');
-  const autoplay = options.playbackMode === 'inline-autoplay' || options.playbackMode === 'modal';
+  const autoplay = ['inline-autoplay', 'inline', 'modal'].includes(options.playbackMode);
 
   url.searchParams.set('autoplay', autoplay.toString());
 

@@ -1,3 +1,13 @@
+html {
+  scrollbar-gutter: stable;
+}
+
+body{
+  &:has(.qc-dialog dialog[open]) {
+    overflow: hidden;
+  }
+}
+
 .qc-widget {
   .qc-dialog {
     height: 100%;
@@ -10,11 +20,14 @@
     }
 
     dialog {
-      background-color: var(--qc-theme-background);
+      background-color: var(--qc-dialog-background-color);
+      border-color: var(--qc-dialog-border-color);
       border-radius: var(--qc-dialog-border-radius);
-      max-width: var(--qc-dialog-max-width);
+      border-style: var(--qc-dialog-border-style);
+      border-width: var(--qc-dialog-border-width);
+      max-width: var(--qc-dialog-width-max);
       overflow: visible;
-      padding: 0;
+      padding: var(--qc-dialog-padding);
       width: var(--qc-dialog-width);
 
       &::backdrop {
@@ -25,26 +38,26 @@
     &__close-button {
       background: transparent;
       border: none;
-      color: var(--qc-theme-color);
+      color: var(--qc-dialog-close-button-color);
       cursor: pointer;
-      height: var(--qc-dialog-close-icon-height);
-      padding: 6px;
+      height: var(--qc-dialog-close-button-height);
+      padding: var(--qc-dialog-close-button-padding);
       position: absolute;
       right: 0;
       top: 0;
       transform: translate(50%, -50%);
-      width: var(--qc-dialog-close-icon-width);
+      width: var(--qc-dialog-close-button-width);
       z-index: 1;
 
       &::before {
-        background-color: var(--qc-theme-background);
+        background-color: var(--qc-dialog-close-button-background-color);
         border-radius: 100%;
-        box-shadow: 0 0 1px 1px #000000;
+        box-shadow: var(--qc-dialog-close-button-shadow);
         content: '';
         display: block;
         height: 100%;
         left: 0;
-        opacity: 0.8;
+        opacity: var(--qc-dialog-close-button-background-opacity);
         position: absolute;
         top: 0;
         width: 100%;
@@ -52,7 +65,7 @@
 
       &:hover {
         &::before {
-          opacity: 1;
+          opacity: var(--qc-dialog-close-button-background-opacity-hover);
         }
       }
 

@@ -2,3 +2,8 @@
 @use '../components/dialog.scss';
 @use '../components/player.scss';
 @use '../components/thumbnail.scss';
+
+.qc-presentation-widget {
+  width: var(--qc-presentation-widget-width);
+  height: var(--qc-presentation-widget-height);
+}

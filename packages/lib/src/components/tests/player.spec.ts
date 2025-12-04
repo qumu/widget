@@ -35,7 +35,7 @@ describe('PlayerComponent', () => {
     }).rejects.toThrow();
   });
 
-  it('should render thumbnail when playbackMode isinline', () => {
+  it('should render thumbnail when playbackMode is inline', () => {
     const options = {
       playbackMode: 'inline',
     } as WidgetOptions;
