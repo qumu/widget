@@ -4,7 +4,7 @@
 @use '../components/thumbnail.scss';
 
 .qc-presentation-widget {
-  width: var(--qc-presentation-widget-width);
-  height: var(--qc-presentation-widget-height);
   border-radius: var(--qc-presentation-widget-border-radius);
+  height: var(--qc-presentation-widget-height);
+  width: var(--qc-presentation-widget-width);
 }
