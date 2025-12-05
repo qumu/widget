@@ -2,7 +2,7 @@ html {
   scrollbar-gutter: stable;
 }
 
-body{
+body {
   &:has(.qc-dialog dialog[open]) {
     overflow: hidden;
   }
@@ -36,45 +36,30 @@ body{
     }
 
     &__close-button {
-      background: transparent;
+      background-color: rgb(from var(--qc-dialog-close-button-background-color) r g b / var(--qc-dialog-close-button-background-opacity));
       border: none;
+      border-radius: 100%;
+      box-shadow: var(--qc-dialog-close-button-shadow);
       color: var(--qc-dialog-close-button-color);
       cursor: pointer;
-      height: var(--qc-dialog-close-button-height);
+      display: flex;
+      place-items: center;
       padding: var(--qc-dialog-close-button-padding);
       position: absolute;
       right: 0;
       top: 0;
-      transform: translate(50%, -50%);
-      width: var(--qc-dialog-close-button-width);
-      z-index: 1;
+      transform: translate(100%, -100%);
 
-      &::before {
-        background-color: var(--qc-dialog-close-button-background-color);
-        border-radius: 100%;
-        box-shadow: var(--qc-dialog-close-button-shadow);
-        content: '';
-        display: block;
-        height: 100%;
-        left: 0;
-        opacity: var(--qc-dialog-close-button-background-opacity);
-        position: absolute;
-        top: 0;
-        width: 100%;
+      &:hover,
+      &:active,
+      &:focus-visible {
+        background-color: rgb(from var(--qc-dialog-close-button-background-color) r g b / var(--qc-dialog-close-button-background-opacity-hover));
       }
+    }
 
-      &:hover {
-        &::before {
-          opacity: var(--qc-dialog-close-button-background-opacity-hover);
-        }
-      }
-
-      svg {
-        height: 100%;
-        position: relative;
-        width: 100%;
-        z-index: 1;
-      }
+    svg {
+      height: var(--qc-dialog-close-icon-size);
+      width: var(--qc-dialog-close-icon-size);
     }
   }
 }

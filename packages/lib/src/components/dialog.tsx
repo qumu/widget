@@ -51,16 +51,17 @@ export function DialogComponent({ presentation, onIframeReady, options }: Props)
           onClose={() => setShowDialog(false)}
           style={{ 'aspect-ratio': `${presentation?.mediaDisplayWidth} / ${presentation?.mediaDisplayHeight}` }}
         >
+          <button
+            type="button"
+            class="qc-dialog__close-button"
+            onClick={closeDialog}
+            dangerouslySetInnerHTML={{ __html: closeIcon }}
+          ></button>
           <PlayerComponent
               presentation={presentation}
               onIframeReady={onIframeReady}
               options={options}
           />
-          <button
-              class="qc-dialog__close-button"
-              onClick={closeDialog}
-              dangerouslySetInnerHTML={{ __html: closeIcon }}
-          ></button>
         </dialog>
       )}
     </div>
