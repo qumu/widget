@@ -19,8 +19,12 @@ export function ThumbnailComponent({ presentation, onClick, options }: Readonly<
     playIconStyle['height'] = `${options.playIcon.height}px`;
   }
 
+  const position = options.playIcon?.position || 'center';
+  const placeX = position.includes('left') ? 'start' : (position.includes('right') ? 'end' : 'center');
+  const placeY = position.includes('top') ? 'start' : (position.includes('bottom') ? 'end' : 'center');
+
   return (
-    <button type="button" class="qc-thumbnail" onClick={() => onClick()}>
+    <button type="button" class="qc-thumbnail" onClick={() => onClick()} style={{ 'place-items': `${placeY} ${placeX}`}}>
       <img
         class="qc-thumbnail__image"
         src={presentation.thumbnail?.cdnUrl || presentation.thumbnail?.url}
@@ -29,13 +33,13 @@ export function ThumbnailComponent({ presentation, onClick, options }: Readonly<
       {options.playIcon?.url ? (
         <img
             alt="Play"
-            class={`qc-thumbnail__play-button qc-thumbnail__play-button--${options.playIcon?.position || 'center'}`}
+            class="qc-thumbnail__play-button"
             src={options.playIcon?.url}
             style={playIconStyle}
         />
       ) : (
         <div
-            class={`qc-thumbnail__play-button qc-thumbnail__play-button--default qc-thumbnail__play-button--${options.playIcon?.position || 'center'}`}
+            class="qc-thumbnail__play-button qc-thumbnail__play-button--default"
             dangerouslySetInnerHTML={{ __html: options.playIcon?.url || playIcon }}
             style={playIconStyle}
         />

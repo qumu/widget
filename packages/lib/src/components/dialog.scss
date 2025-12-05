@@ -36,7 +36,8 @@ body{
     }
 
     &__close-button {
-      background: transparent;
+      background-color: rgb(from var(--qc-dialog-close-button-background-color) r g b / var(--qc-dialog-close-button-background-opacity));
+      border-radius: 100%;
       border: none;
       color: var(--qc-dialog-close-button-color);
       cursor: pointer;
@@ -49,24 +50,8 @@ body{
       width: var(--qc-dialog-close-button-width);
       z-index: 1;
 
-      &::before {
-        background-color: var(--qc-dialog-close-button-background-color);
-        border-radius: 100%;
-        box-shadow: var(--qc-dialog-close-button-shadow);
-        content: '';
-        display: block;
-        height: 100%;
-        left: 0;
-        opacity: var(--qc-dialog-close-button-background-opacity);
-        position: absolute;
-        top: 0;
-        width: 100%;
-      }
-
       &:hover {
-        &::before {
-          opacity: var(--qc-dialog-close-button-background-opacity-hover);
-        }
+        background-color: rgb(from var(--qc-dialog-close-button-background-color) r g b / var(--qc-dialog-close-button-background-opacity-hover));
       }
 
       svg {
