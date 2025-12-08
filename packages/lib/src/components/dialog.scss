@@ -2,7 +2,7 @@ html {
   scrollbar-gutter: stable;
 }
 
-body{
+body {
   &:has(.qc-dialog dialog[open]) {
     overflow: hidden;
   }
@@ -39,26 +39,30 @@ body{
       background-color: rgb(from var(--qc-dialog-close-button-background-color) r g b / var(--qc-dialog-close-button-background-opacity));
       border-radius: 100%;
       border: none;
+      box-shadow: var(--qc-dialog-close-button-shadow);
       color: var(--qc-dialog-close-button-color);
       cursor: pointer;
+      display: flex;
       height: var(--qc-dialog-close-button-height);
       padding: var(--qc-dialog-close-button-padding);
+      place-items: center;
       position: absolute;
       right: 0;
       top: 0;
-      transform: translate(50%, -50%);
+      transform: translate(75%, -75%);
       width: var(--qc-dialog-close-button-width);
       z-index: 1;
 
+      &:active,
+      &:focus-visible,
       &:hover {
         background-color: rgb(from var(--qc-dialog-close-button-background-color) r g b / var(--qc-dialog-close-button-background-opacity-hover));
       }
 
       svg {
-        height: 100%;
+        height: var(--qc-dialog-close-icon-size);
         position: relative;
-        width: 100%;
-        z-index: 1;
+        width: var(--qc-dialog-close-icon-size);
       }
     }
   }

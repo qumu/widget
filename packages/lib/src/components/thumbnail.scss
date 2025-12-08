@@ -36,13 +36,16 @@
           height: 100%;
           position: relative;
           width: 100%;
-          z-index: 1;
         }
       }
     }
 
-    &:hover .qc-thumbnail__play-button--default {
-      background-color: rgb(from var(--qc-thumbnail-play-button-background-color) r g b / var(--qc-thumbnail-play-button-background-opacity-hover));
+    &:active,
+    &:focus-visible,
+    &:hover {
+      .qc-thumbnail__play-button--default {
+        background-color: rgb(from var(--qc-thumbnail-play-button-background-color) r g b / var(--qc-thumbnail-play-button-background-opacity-hover));
+      }
     }
   }
 }
