@@ -180,7 +180,7 @@ describe('PlayerComponent', () => {
         speech: '',
         speechTerm: '',
         start: 45,
-        volume: 0.5,
+        volume: 50,
       };
 
       render(createElement(PlayerComponent, {

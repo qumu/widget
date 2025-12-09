@@ -39,11 +39,7 @@ export function PlayerComponent({ presentation, onIframeReady, options, playerPa
   url.searchParams.set('autoplay', autoplay.toString());
 
   Object.entries(playerParameters).forEach(([key, value]) => {
-    if (key === 'volume') {
-      url.searchParams.set(key, `${(value as number) * 100}`);
-    } else {
-      url.searchParams.set(key, String(value));
-    }
+    url.searchParams.set(key, String(value));
   });
 
   if (options.playerConfigurationGuid) {
