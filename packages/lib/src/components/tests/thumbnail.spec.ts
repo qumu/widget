@@ -4,6 +4,7 @@ import { createElement } from 'preact';
 import { ThumbnailComponent } from '../thumbnail';
 import { WidgetOptions } from '@/interfaces/widget-options';
 import { Presentation } from '@/interfaces/presentation';
+import type { PlayIconPosition } from '@/interfaces/play-icon';
 
 vi.mock('../../../assets/play-icon.svg?raw', () => ({
   default: '<svg><circle cx="50" cy="50" r="40"/></svg>',
@@ -174,6 +175,45 @@ describe('ThumbnailComponent', () => {
       const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button');
 
       expect(playIcon?.getAttribute('style')).toBeNull();
+    });
+
+    it('should position play icon based on options', () => {
+      const positionMap = {
+        'bottom-center': ['end', 'center'],
+        'bottom-left': ['end', 'start'],
+        'bottom-right': ['end', 'end'],
+        center: ['center', 'center'],
+        left: ['center', 'start'],
+        right: ['center', 'end'],
+        'top-center': ['start', 'center'],
+        'top-left': ['start', 'start'],
+        'top-right': ['start', 'end'],
+      };
+
+      const options = {
+        playIcon: {
+          height: 50,
+          url: 'https://example.com/custom-play-icon.png',
+          width: 50,
+        },
+      } as WidgetOptions;
+
+      Object.entries(positionMap).forEach(([position, [placeY, placeX]]) => {
+        document.body.innerHTML = '';
+        options.playIcon.position = position as PlayIconPosition;
+
+        render(createElement(ThumbnailComponent, {
+          onClick: mockOnClick,
+          options,
+          presentation: mockPresentation,
+        }));
+
+        const button = screen.getByRole('button');
+
+        expect(button).toHaveStyle({
+          'place-items': `${placeY} ${placeX}`,
+        });
+      });
     });
   });
 

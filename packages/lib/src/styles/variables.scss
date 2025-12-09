@@ -1,12 +1,37 @@
 :root {
-  --qc-dialog-backdrop: rgba(0, 0, 0, 0.5);
-  --qc-dialog-border-radius: 8px;
-  --qc-dialog-close-icon-height: 32px;
-  --qc-dialog-close-icon-width: 32px;
-  --qc-dialog-max-width: 800px;
-  --qc-dialog-width: 90vw;
-  --qc-play-icon-height: 64px;
-  --qc-play-icon-width: 64px;
+  // Theme colors
   --qc-theme-background: #09091a;
   --qc-theme-color: #f5f8fa;
+
+  // Dialog style
+  --qc-dialog-backdrop: rgb(0 0 0 / 0.5);
+  --qc-dialog-background-color: #000;
+  --qc-dialog-border-color: #000;
+  --qc-dialog-border-radius: 8px;
+  --qc-dialog-border-style: solid;
+  --qc-dialog-border-width: 3px;
+  --qc-dialog-close-button-background-color: var(--qc-theme-background);
+  --qc-dialog-close-button-background-opacity: 0.8;
+  --qc-dialog-close-button-background-opacity-hover: 1;
+  --qc-dialog-close-button-color: var(--qc-theme-color);
+  --qc-dialog-close-button-padding: 6px;
+  --qc-dialog-close-button-shadow: 0 0 1px 1px #000000;
+  --qc-dialog-close-icon-size: 20px;
+  --qc-dialog-padding: 0;
+  --qc-dialog-width-max: 1100px;
+  --qc-dialog-width: 90vw;
+
+  // Thumbnail style
+  --qc-thumbnail-play-button-height: var(--qc-thumbnail-play-button-width);
+  --qc-thumbnail-play-button-margin: calc(var(--qc-thumbnail-play-button-width) / 5);
+  --qc-thumbnail-play-button-width: 64px;
+  --qc-thumbnail-play-button-background-color: var(--qc-theme-background);
+  --qc-thumbnail-play-button-background-opacity: 0.8;
+  --qc-thumbnail-play-button-background-opacity-hover: 1;
+  --qc-thumbnail-image-fit: cover;
+
+  // Presentation widget style
+  --qc-presentation-widget-border-radius: 8px;
+  --qc-presentation-widget-height: 100%;
+  --qc-presentation-widget-width: 100%;
 }
