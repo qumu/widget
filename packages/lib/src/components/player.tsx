@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { Presentation } from '@/interfaces/presentation';
 import { WidgetOptions } from '@/interfaces/widget-options';
 import { ThumbnailComponent } from './thumbnail';
+import { PlayerParameters } from '@/interfaces/player-parameters';
 
 interface Props {
   presentation: Presentation;
   onIframeReady?: (iframe: HTMLIFrameElement) => void;
-  options: WidgetOptions;
+  playerParameters: Partial<PlayerParameters>;
+  widgetOptions: WidgetOptions;
 }
 
-export function PlayerComponent({ presentation, onIframeReady, options }: Readonly<Props>) {
-  const [showIframe, setShowIframe] = useState(['inline-autoload', 'inline-autoplay', 'modal'].includes(options.playbackMode));
+export function PlayerComponent({ presentation, onIframeReady, widgetOptions, playerParameters }: Readonly<Props>) {
+  const [showIframe, setShowIframe] = useState(['inline-autoload', 'inline-autoplay', 'modal'].includes(widgetOptions.playbackMode));
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -32,12 +34,16 @@ export function PlayerComponent({ presentation, onIframeReady, options }: Readon
   }, [showIframe]);
 
   const url = new URL(presentation.player || '');
-  const autoplay = ['inline-autoplay', 'inline', 'modal'].includes(options.playbackMode);
+  const autoplay = ['inline-autoplay', 'inline', 'modal'].includes(widgetOptions.playbackMode);
 
   url.searchParams.set('autoplay', autoplay.toString());
 
-  if (options.playerConfigurationGuid) {
-    url.searchParams.set('playerConfigurationGuid', options.playerConfigurationGuid);
+  Object.entries(playerParameters).forEach(([key, value]) => {
+    url.searchParams.set(key, String(value));
+  });
+
+  if (widgetOptions.playerConfigurationGuid) {
+    url.searchParams.set('playerConfigurationGuid', widgetOptions.playerConfigurationGuid);
   }
 
   const iframe = (
@@ -47,7 +53,6 @@ export function PlayerComponent({ presentation, onIframeReady, options }: Readon
       width="100%"
       height="100%"
       allow="autoplay; fullscreen"
-      frameBorder="0"
       title="Qumu Player"
       class="qc-player"
     />
@@ -57,7 +62,7 @@ export function PlayerComponent({ presentation, onIframeReady, options }: Readon
     <ThumbnailComponent
       presentation={presentation}
       onClick={() => setShowIframe(true)}
-      options={options}
+      widgetOptions={widgetOptions}
     />
   )
 

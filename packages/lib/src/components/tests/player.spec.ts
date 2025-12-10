@@ -4,6 +4,7 @@ import { createElement } from 'preact';
 import { PlayerComponent } from '../player';
 import { WidgetOptions } from '@/interfaces/widget-options';
 import { Presentation } from '@/interfaces/presentation';
+import { PlayerParameters } from '@/interfaces/player-parameters';
 
 describe('PlayerComponent', () => {
   const mockPresentation: Presentation = {
@@ -27,8 +28,9 @@ describe('PlayerComponent', () => {
     // eslint-disable-next-line @typescript-eslint/require-await
     await expect(async () => {
       const { container } = render(createElement(PlayerComponent, {
-        options: {} as WidgetOptions,
+        playerParameters: {} as PlayerParameters,
         presentation: null as unknown as Presentation,
+        widgetOptions: {} as WidgetOptions,
       }));
 
       expect(container.textContent).toMatch('');
@@ -36,13 +38,14 @@ describe('PlayerComponent', () => {
   });
 
   it('should render thumbnail when playbackMode is inline', () => {
-    const options = {
+    const widgetOptions = {
       playbackMode: 'inline',
     } as WidgetOptions;
 
     render(createElement(PlayerComponent, {
-      options,
+      playerParameters: {} as PlayerParameters,
       presentation: mockPresentation,
+      widgetOptions,
     }));
 
     const thumbnail = screen.getByAltText('Thumbnail for Test Presentation');
@@ -52,7 +55,7 @@ describe('PlayerComponent', () => {
   });
 
   it('should render thumbnail url if no cdnUrl is present', () => {
-    const options = {
+    const widgetOptions = {
       playbackMode: 'inline',
     } as WidgetOptions;
 
@@ -66,8 +69,9 @@ describe('PlayerComponent', () => {
     delete presentation.thumbnail!.cdnUrl;
 
     render(createElement(PlayerComponent, {
-      options,
+      playerParameters: {} as PlayerParameters,
       presentation,
+      widgetOptions,
     }));
 
     const thumbnail = screen.getByAltText('Thumbnail for Test Presentation');
@@ -77,13 +81,14 @@ describe('PlayerComponent', () => {
   });
 
   it('should render iframe when playbackMode is inline-autoload', () => {
-    const options = {
+    const widgetOptions = {
       playbackMode: 'inline-autoload',
     } as WidgetOptions;
 
     render(createElement(PlayerComponent, {
-      options,
+      playerParameters: {} as PlayerParameters,
       presentation: mockPresentation,
+      widgetOptions,
     }));
 
     const iframe = screen.getByTitle('Qumu Player');
@@ -97,10 +102,11 @@ describe('PlayerComponent', () => {
 
   it('should switch from thumbnail to iframe when thumbnail is clicked', () => {
     render(createElement(PlayerComponent, {
-      options: {
+      playerParameters: {} as PlayerParameters,
+      presentation: mockPresentation,
+      widgetOptions: {
         playbackMode: 'inline',
       } as WidgetOptions,
-      presentation: mockPresentation,
     }));
 
     expect(screen.getByAltText('Thumbnail for Test Presentation')).toBeInTheDocument();
@@ -116,14 +122,15 @@ describe('PlayerComponent', () => {
 
   it('should call onIframeReady when iframe loads', () => {
     const onIframeReady = vi.fn();
-    const options: WidgetOptions = {
+    const widgetOptions: WidgetOptions = {
       playbackMode: 'inline-autoload',
     } as WidgetOptions;
 
     render(createElement(PlayerComponent, {
       onIframeReady,
-      options,
+      playerParameters: {} as PlayerParameters,
       presentation: mockPresentation,
+      widgetOptions,
     }));
 
     const iframe = screen.getByTitle('Qumu Player');
@@ -134,7 +141,7 @@ describe('PlayerComponent', () => {
   });
 
   it('should throw an error when no player parameter is provided in the presentation', async () => {
-    const options = {
+    const widgetOptions = {
       playbackMode: 'inline-autoload',
     } as WidgetOptions;
 
@@ -145,24 +152,63 @@ describe('PlayerComponent', () => {
 
     await expect(async () => {
       render(createElement(PlayerComponent, {
-        options,
+        playerParameters: {} as PlayerParameters,
         presentation,
+        widgetOptions,
       }));
 
       await new Promise((resolve) => setTimeout(resolve, 0));
     }).rejects.toThrow();
   });
 
+  describe('playerParameters', () => {
+    it('should set player parameters in iframe src', () => {
+      const widgetOptions = {
+        playbackMode: 'inline-autoload',
+      } as WidgetOptions;
+
+      const playerParameters: Partial<PlayerParameters> = {
+        captions: 'en',
+        debug: true,
+        loop: true,
+        pv: 'sbs',
+        quality: '720p',
+        reporting: true,
+        reportingId: 'my-reporting-id-12345',
+        showControlPanel: true,
+        sidebar: true,
+        speech: '',
+        speechTerm: '',
+        start: 45,
+        volume: 50,
+      };
+
+      render(createElement(PlayerComponent, {
+        playerParameters,
+        presentation: mockPresentation,
+        widgetOptions,
+      }));
+
+      const iframe = screen.getByTitle('Qumu Player');
+
+      expect(iframe).toHaveAttribute(
+        'src',
+        'https://example.com/player?autoplay=false&captions=en&debug=true&loop=true&pv=sbs&quality=720p&reporting=true&reportingId=my-reporting-id-12345&showControlPanel=true&sidebar=true&speech=&speechTerm=&start=45&volume=50',
+      );
+    });
+  });
+
   describe('widgetOptions', () => {
     it('should set playerConfigurationGuid parameter when provided', () => {
-      const options = {
+      const widgetOptions = {
         playbackMode: 'inline-autoload',
         playerConfigurationGuid: 'config-guid-123',
       } as WidgetOptions;
 
       render(createElement(PlayerComponent, {
-        options,
+        playerParameters: {} as PlayerParameters,
         presentation: mockPresentation,
+        widgetOptions,
       }));
 
       const iframe = screen.getByTitle('Qumu Player');
