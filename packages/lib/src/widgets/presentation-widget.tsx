@@ -66,3 +66,5 @@ export class PresentationWidget {
     );
   }
 }
+
+export default PresentationWidget;

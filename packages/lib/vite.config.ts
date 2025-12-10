@@ -13,6 +13,7 @@ export default defineConfig({
       formats: ['es'],
       name: 'Qumu Widget',
     },
+    minify: 'terser',
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
