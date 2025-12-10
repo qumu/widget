@@ -52,14 +52,14 @@ export class PresentationWidget {
           <DialogComponent
               presentation={this.presentation!}
               onIframeReady={this.iframeDeferred.resolve}
-              playerParameters={this.configuration.playerParameters || {}}
+              playerParameters={this.configuration.playerParameters!}
               widgetOptions={this.configuration.widgetOptions as WidgetOptions}
           />
         ) : (
           <PlayerComponent
             presentation={this.presentation!}
             onIframeReady={this.iframeDeferred.resolve}
-            playerParameters={this.configuration.playerParameters || {}}
+            playerParameters={this.configuration.playerParameters!}
             widgetOptions={this.configuration.widgetOptions as WidgetOptions}
           />
         )}

@@ -8,21 +8,12 @@ const supportedPlayerParameterFields = new Set(['captions', 'debug', 'loop', 'pv
 
 export class ConfigurationService {
   validateAndSanitize(initialConfiguration: WidgetConfiguration): WidgetConfiguration {
-    const configuration = structuredClone(initialConfiguration);
-
-    if (!configuration || typeof configuration !== 'object') {
+    if (!initialConfiguration || typeof initialConfiguration !== 'object') {
       throw new Error('Configuration must be a valid object');
     }
 
-    Object.keys(configuration).forEach((field) => {
-      if (!supportedConfigFields.has(field)) {
-        console.warn(`Unsupported field \`${field}\` in configuration`);
-        delete configuration[field as keyof WidgetConfiguration];
-      }
-    });
-
     ['selector', 'host', 'guid'].forEach((field) => {
-      const value = configuration[field as keyof WidgetConfiguration];
+      const value = initialConfiguration[field as keyof WidgetConfiguration];
 
       if (value === undefined || value === null) {
         throw new Error(`\`${field}\` is not defined in the configuration`);
@@ -34,6 +25,15 @@ export class ConfigurationService {
 
       if (value.trim() === '') {
         throw new Error(`\`${field}\` cannot be an empty string`);
+      }
+    });
+
+    const configuration = structuredClone(initialConfiguration);
+
+    Object.keys(configuration).forEach((field) => {
+      if (!supportedConfigFields.has(field)) {
+        console.warn(`Unsupported field \`${field}\` in configuration`);
+        delete configuration[field as keyof WidgetConfiguration];
       }
     });
 
