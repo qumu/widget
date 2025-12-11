@@ -5,6 +5,6 @@ export interface WidgetConfiguration {
   guid: string;
   host: string;
   playerParameters?: Partial<PlayerParameters>;
-  selector: string;
+  selector: string | HTMLElement;
   widgetOptions?: Partial<WidgetOptions>;
 }

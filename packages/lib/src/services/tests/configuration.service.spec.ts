@@ -64,7 +64,7 @@ describe('ConfigurationService', () => {
     });
 
     describe('selector validation', () => {
-      it('should throw error when selector is undefined', () => {
+      it('should throw error when selector is not defined', () => {
         const config = { ...validConfiguration };
 
         delete (config as Record<string, unknown>).selector;
@@ -81,18 +81,18 @@ describe('ConfigurationService', () => {
         };
 
         expect(() => configurationService.validateAndSanitize(config)).toThrow(
-          '`selector` is not defined in the configuration',
+          '`selector` is undefined or null',
         );
       });
 
-      it('should throw error when selector is not a string', () => {
+      it('should throw error when selector is not a string or an instance of HTMLElement', () => {
         const config = {
           ...validConfiguration,
           selector: 123 as unknown as string,
         };
 
         expect(() => configurationService.validateAndSanitize(config)).toThrow(
-          '`selector` must be a string',
+          '`selector` must be a string or an instance of HTMLElement',
         );
       });
 
@@ -120,7 +120,7 @@ describe('ConfigurationService', () => {
     });
 
     describe('host validation', () => {
-      it('should throw error when host is undefined', () => {
+      it('should throw error when host is not defined', () => {
         const config = { ...validConfiguration };
 
         delete (config as Record<string, unknown>).host;
@@ -137,7 +137,7 @@ describe('ConfigurationService', () => {
         };
 
         expect(() => configurationService.validateAndSanitize(config)).toThrow(
-          '`host` is not defined in the configuration',
+          '`host` is undefined or null',
         );
       });
 
@@ -263,7 +263,7 @@ describe('ConfigurationService', () => {
     });
 
     describe('guid validation', () => {
-      it('should throw error when guid is undefined', () => {
+      it('should throw error when guid is not defined', () => {
         const config = { ...validConfiguration };
 
         delete (config as Record<string, unknown>).guid;
@@ -280,7 +280,7 @@ describe('ConfigurationService', () => {
         };
 
         expect(() => configurationService.validateAndSanitize(config)).toThrow(
-          '`guid` is not defined in the configuration',
+          '`guid` is undefined or null',
         );
       });
 
@@ -371,7 +371,7 @@ describe('ConfigurationService', () => {
 
         // Should throw for the first field it encounters (selector)
         expect(() => configurationService.validateAndSanitize(config)).toThrow(
-          '`selector` is not defined in the configuration',
+          '`selector` is undefined or null',
         );
       });
     });

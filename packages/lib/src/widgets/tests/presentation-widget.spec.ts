@@ -153,6 +153,25 @@ describe('PresentationWidget', () => {
       expect(renderedElement).toBeDefined();
     });
 
+    it('uses HTMLElement from selector if provided', async () => {
+      const element = document.createElement('div');
+      const configWithHTMLElement: WidgetConfiguration = {
+        ...mockConfiguration,
+        selector: element,
+      };
+
+      // eslint-disable-next-line no-new
+      new PresentationWidget(configWithHTMLElement);
+
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      expect(mockRender).toHaveBeenCalledTimes(1);
+
+      const renderCall = mockRender.mock.calls[0];
+
+      expect(renderCall[1]).toBe(element);
+    });
+
     it('clears container innerHTML before mounting', async () => {
       mockContainer.innerHTML = '<div>existing content</div>';
 

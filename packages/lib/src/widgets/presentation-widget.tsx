@@ -38,7 +38,9 @@ export class PresentationWidget {
   }
 
   private mount() {
-    const container = document.querySelector(this.configuration.selector);
+    const container = this.configuration.selector instanceof HTMLElement
+      ? this.configuration.selector
+      : document.querySelector(this.configuration.selector);
 
     if (!container) {
       throw new Error(`Element for selector "${this.configuration.selector}" not found`);
