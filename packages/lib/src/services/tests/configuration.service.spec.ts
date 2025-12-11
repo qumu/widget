@@ -63,6 +63,30 @@ describe('ConfigurationService', () => {
       expect(consoleWarnSpy).toHaveBeenCalledWith('Unsupported field `widgetOptions.extraField` in configuration');
     });
 
+    it('should not mutate the input configuration object', () => {
+      const inputConfig = {
+        guid: 'test-guid-123',
+        host: 'example.com',
+        selector: '#my-widget',
+        unsupportedField: 'not-supported',
+        widgetOptions: {
+          playbackMode: 'inline',
+          playIcon: {
+            position: 'center',
+            unsupportedField: 'not-supported',
+            url: 'https://example.com/play-icon.png',
+          },
+          unsupportedField: 'not-supported',
+        },
+      } as unknown as WidgetConfiguration;
+
+      const inputConfigCopy = JSON.parse(JSON.stringify(inputConfig)) as unknown as WidgetConfiguration;
+
+      configurationService.validateAndSanitize(inputConfig);
+
+      expect(inputConfig).toEqual(inputConfigCopy);
+    });
+
     describe('selector validation', () => {
       it('should throw error when selector is not defined', () => {
         const config = { ...validConfiguration };
@@ -566,6 +590,45 @@ describe('ConfigurationService', () => {
 
           expect(consoleWarnSpy).not.toHaveBeenCalled();
         });
+      });
+    });
+
+    describe('onThumbnailClick validation', () => {
+      it('should throw error when onThumbnailClick is not a function', () => {
+        const invalidValues = ['', 123, true, null, {}];
+
+        invalidValues.forEach((value) => {
+          expect(() => configurationService.validateWidgetOptions({
+            playbackMode: 'inline',
+            onThumbnailClick: value as unknown as WidgetOptions['onThumbnailClick'],
+          } as WidgetOptions)).toThrow(
+            '`widgetOptions.onThumbnailClick` must be a function',
+          );
+        });
+      });
+
+      it('should warn when onThumbnailClick is used with unsupported playbackMode', () => {
+        const unsupportedModes = ['inline-autoload', 'inline-autoplay', 'modal', undefined];
+
+        unsupportedModes.forEach((mode) => {
+          expect(() => configurationService.validateWidgetOptions({
+            onThumbnailClick: () => {},
+            playbackMode: mode,
+          } as unknown as WidgetOptions)).not.toThrow();
+
+          expect(consoleWarnSpy).toHaveBeenCalledWith('`widgetOptions.onThumbnailClick` is only applicable when `widgetOptions.playbackMode` is "inline"');
+        });
+      });
+
+      it('should not warn when onThumbnailClick is used with supported playbackMode', () => {
+        consoleWarnSpy.mockClear();
+
+        expect(() => configurationService.validateWidgetOptions({
+          onThumbnailClick: () => {},
+          playbackMode: 'inline',
+        } as unknown as WidgetOptions)).not.toThrow();
+
+        expect(consoleWarnSpy).not.toHaveBeenCalled();
       });
     });
   });

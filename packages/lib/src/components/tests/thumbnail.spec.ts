@@ -247,6 +247,27 @@ describe('ThumbnailComponent', () => {
 
       expect(mockOnClick).toHaveBeenCalledTimes(3);
     });
+
+    it('should call onThumbnailClick from widgetOptions if provided', () => {
+      const mockOnThumbnailClick = vi.fn();
+      const widgetOptions = {
+        onThumbnailClick: mockOnThumbnailClick,
+      } as unknown as WidgetOptions;
+
+      render(createElement(ThumbnailComponent, {
+        onClick: mockOnClick,
+        presentation: mockPresentation,
+        widgetOptions,
+      }));
+
+      const button = screen.getByRole('button');
+
+      fireEvent.click(button);
+
+      expect(mockOnThumbnailClick).toHaveBeenCalledTimes(1);
+      expect(mockOnThumbnailClick).toHaveBeenCalledWith(mockPresentation);
+      expect(mockOnClick).not.toHaveBeenCalled();
+    });
   });
 
   describe('Edge Cases', () => {
