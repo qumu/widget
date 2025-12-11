@@ -15,12 +15,20 @@ export class ConfigurationService {
     ['selector', 'host', 'guid'].forEach((field) => {
       const value = initialConfiguration[field as keyof WidgetConfiguration];
 
-      if (value === undefined || value === null) {
+      if (Object.hasOwn(initialConfiguration, field) === false) {
         throw new Error(`\`${field}\` is not defined in the configuration`);
       }
 
+      if (value === undefined || value === null) {
+        throw new Error(`\`${field}\` is undefined or null`);
+      }
+
+      if (field === 'selector' && value instanceof HTMLElement) {
+        return;
+      }
+
       if (typeof value !== 'string') {
-        throw new TypeError(`\`${field}\` must be a string`);
+        throw new TypeError(`\`${field}\` must be a string${field === 'selector' ? ' or an instance of HTMLElement' : ''}`);
       }
 
       if (value.trim() === '') {
@@ -28,7 +36,11 @@ export class ConfigurationService {
       }
     });
 
-    const configuration = structuredClone(initialConfiguration);
+    const configuration = {
+      ...initialConfiguration,
+      playerParameters: structuredClone(initialConfiguration.playerParameters),
+      widgetOptions: structuredClone(initialConfiguration.widgetOptions),
+    };
 
     Object.keys(configuration).forEach((field) => {
       if (!supportedConfigFields.has(field)) {
