@@ -87,7 +87,7 @@
 
           widgetOptions: {
             // set playback mode for the widget of 'inline' | 'inline-autoload' | 'inline-autoplay' | 'modal'
-            playbackMode: 'modal',
+            playbackMode: 'inline',
 
             // the player configuration GUID to use for playback
             // this should also impact the widget appearance
@@ -100,6 +100,10 @@
             //   height: 128,
             //   position: 'bottom-right',
             // },
+
+            onThumbnailClick: () => {
+              console.log('# Presentation widget clicked!!!');
+            },
           },
           playerParameters: {
             badParam: 'ha ha ha',

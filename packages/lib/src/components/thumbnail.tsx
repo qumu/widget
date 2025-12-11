@@ -23,8 +23,12 @@ export function ThumbnailComponent({ presentation, onClick, widgetOptions }: Rea
   const placeX = position.includes('left') ? 'start' : (position.includes('right') ? 'end' : 'center');
   const placeY = position.includes('top') ? 'start' : (position.includes('bottom') ? 'end' : 'center');
 
+  const clickHandler = () => {
+    widgetOptions.onThumbnailClick ? widgetOptions.onThumbnailClick(presentation) : onClick();
+  };
+
   return (
-    <button type="button" class="qc-thumbnail" onClick={() => onClick()} style={{ 'place-items': `${placeY} ${placeX}`}}>
+    <button type="button" class="qc-thumbnail" onClick={clickHandler} style={{ 'place-items': `${placeY} ${placeX}`}}>
       <img
         class="qc-thumbnail__image"
         src={presentation.thumbnail?.cdnUrl || presentation.thumbnail?.url}
