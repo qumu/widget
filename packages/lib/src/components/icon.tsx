@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 interface Props {
-  width?: number | string;
+  class?: string;
   height?: number | string;
   svg: string;
-  class?: string;
+  width?: number | string;
 }
 
 export function IconComponent({ svg, width, height, class: classNames }: Readonly<Props>) {
