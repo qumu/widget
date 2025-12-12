@@ -29,7 +29,7 @@ export class PresentationWidget {
   destroy() {
     if (this.destroyed) {
       return;
-    } // Make idempotent
+    }
 
     if (this.container) {
       // Unmount the widget properly
