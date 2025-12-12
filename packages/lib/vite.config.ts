@@ -7,7 +7,7 @@ export default defineConfig({
     cssCodeSplit: true,
     lib: {
       entry: {
-        'index': path.resolve(__dirname, './src/index.ts'),
+        index: path.resolve(__dirname, './src/index.ts'),
         'presentation-widget': path.resolve(__dirname, './src/widgets/presentation-widget.tsx'),
       },
       fileName: (_, name) => `${name}.js`,

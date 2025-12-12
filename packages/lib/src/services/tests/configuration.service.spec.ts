@@ -485,6 +485,7 @@ describe('ConfigurationService', () => {
         quality: 'high',
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
       expect(() => configurationService.validatePlayerParameters(playerParameters as any)).toThrow(
         '`playerParameters.quality` must be either "240p", "480p", "720p", "1080p", "1440p" or "auto"',
       );
@@ -599,8 +600,8 @@ describe('ConfigurationService', () => {
 
         invalidValues.forEach((value) => {
           expect(() => configurationService.validateWidgetOptions({
-            playbackMode: 'inline',
             onThumbnailClick: value as unknown as WidgetOptions['onThumbnailClick'],
+            playbackMode: 'inline',
           } as WidgetOptions)).toThrow(
             '`widgetOptions.onThumbnailClick` must be a function',
           );

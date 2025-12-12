@@ -241,5 +241,5 @@ describe('PresentationWidget', () => {
 
       expect(container.innerHTML).toMatchInlineSnapshot(`""`);
     });
-  })
+  });
 });
