@@ -136,6 +136,12 @@ export class ConfigurationService {
     const widgetOptions = {
       playbackMode: 'inline',
       ...initialConfiguration.widgetOptions,
+      playIcon: {
+        height: 44,
+        position: 'center',
+        width: 44,
+        ...initialConfiguration.widgetOptions?.playIcon,
+      },
     } as WidgetOptions;
 
     const playerParameters = {

@@ -1,5 +1,6 @@
 import { Presentation } from '@/interfaces/presentation';
 import { WidgetOptions } from '@/interfaces/widget-options';
+import { IconComponent } from './icon';
 import playIcon from '../../assets/play-icon.svg?raw';
 
 interface Props {
@@ -11,13 +12,8 @@ interface Props {
 export function ThumbnailComponent({ presentation, onClick, widgetOptions }: Readonly<Props>) {
   const playIconStyle: Record<string, string> = {};
 
-  if (widgetOptions.playIcon?.width) {
-    playIconStyle['width'] = `${widgetOptions.playIcon.width}px`;
-  }
-
-  if (widgetOptions.playIcon?.height) {
-    playIconStyle['height'] = `${widgetOptions.playIcon.height}px`;
-  }
+  playIconStyle['width'] = `${widgetOptions.playIcon.width}px`;
+  playIconStyle['height'] = `${widgetOptions.playIcon.height}px`;
 
   const position = widgetOptions.playIcon?.position || 'center';
   const placeX = position.includes('left') ? 'start' : (position.includes('right') ? 'end' : 'center');
@@ -42,11 +38,7 @@ export function ThumbnailComponent({ presentation, onClick, widgetOptions }: Rea
             style={playIconStyle}
         />
       ) : (
-        <div
-            class="qc-thumbnail__play-button qc-thumbnail__play-button--default"
-            dangerouslySetInnerHTML={{ __html: widgetOptions.playIcon?.url || playIcon }}
-            style={playIconStyle}
-        />
+        <IconComponent class="qc-thumbnail__play-button qc-thumbnail__play-button--default" svg={playIcon} width={widgetOptions.playIcon.width} height={widgetOptions.playIcon.height} />
       )}
     </button>
   );

@@ -3,8 +3,9 @@ import { WidgetOptions } from '@/interfaces/widget-options';
 import { Presentation } from '@/interfaces/presentation';
 import { ThumbnailComponent } from './thumbnail';
 import { PlayerComponent } from './player';
-import closeIcon from '../../assets/close.svg?raw';
 import { PlayerParameters } from '@/interfaces/player-parameters';
+import { IconComponent } from './icon';
+import closeIcon from '../../assets/close.svg?raw';
 
 interface Props {
   presentation: Presentation;
@@ -57,8 +58,9 @@ export function DialogComponent({ presentation, onIframeReady, widgetOptions, pl
               type="button"
               class="qc-dialog__close-button"
               onClick={closeDialog}
-              dangerouslySetInnerHTML={{ __html: closeIcon }}
-          ></button>
+          >
+            <IconComponent svg={closeIcon} />
+          </button>
           <PlayerComponent
               presentation={presentation}
               onIframeReady={onIframeReady}

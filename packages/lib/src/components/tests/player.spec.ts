@@ -5,6 +5,7 @@ import { PlayerComponent } from '../player';
 import { WidgetOptions } from '@/interfaces/widget-options';
 import { Presentation } from '@/interfaces/presentation';
 import { PlayerParameters } from '@/interfaces/player-parameters';
+import { ConfigurationService } from '@/services/configuration.service';
 
 describe('PlayerComponent', () => {
   const mockPresentation: Presentation = {
@@ -20,6 +21,13 @@ describe('PlayerComponent', () => {
     title: 'Test Presentation',
   };
 
+  const configurationService = new ConfigurationService();
+  const mockConfiguration = configurationService.setDefaults({
+    guid: 'test-guid',
+    host: 'https://example.com',
+    selector: '#widget-container',
+  });
+
   afterEach(() => {
     vi.clearAllMocks();
   });
@@ -30,7 +38,7 @@ describe('PlayerComponent', () => {
       const { container } = render(createElement(PlayerComponent, {
         playerParameters: {} as PlayerParameters,
         presentation: null as unknown as Presentation,
-        widgetOptions: {} as WidgetOptions,
+        widgetOptions: mockConfiguration.widgetOptions as WidgetOptions,
       }));
 
       expect(container.textContent).toMatch('');
@@ -39,6 +47,7 @@ describe('PlayerComponent', () => {
 
   it('should render thumbnail when playbackMode is inline', () => {
     const widgetOptions = {
+      ...mockConfiguration.widgetOptions as WidgetOptions,
       playbackMode: 'inline',
     } as WidgetOptions;
 
@@ -56,6 +65,7 @@ describe('PlayerComponent', () => {
 
   it('should render thumbnail url if no cdnUrl is present', () => {
     const widgetOptions = {
+      ...mockConfiguration.widgetOptions as WidgetOptions,
       playbackMode: 'inline',
     } as WidgetOptions;
 
@@ -82,6 +92,7 @@ describe('PlayerComponent', () => {
 
   it('should render iframe when playbackMode is inline-autoload', () => {
     const widgetOptions = {
+      ...mockConfiguration.widgetOptions as WidgetOptions,
       playbackMode: 'inline-autoload',
     } as WidgetOptions;
 
@@ -105,6 +116,7 @@ describe('PlayerComponent', () => {
       playerParameters: {} as PlayerParameters,
       presentation: mockPresentation,
       widgetOptions: {
+        ...mockConfiguration.widgetOptions as WidgetOptions,
         playbackMode: 'inline',
       } as WidgetOptions,
     }));
@@ -123,6 +135,7 @@ describe('PlayerComponent', () => {
   it('should call onIframeReady when iframe loads', () => {
     const onIframeReady = vi.fn();
     const widgetOptions: WidgetOptions = {
+      ...mockConfiguration.widgetOptions as WidgetOptions,
       playbackMode: 'inline-autoload',
     } as WidgetOptions;
 
@@ -142,6 +155,7 @@ describe('PlayerComponent', () => {
 
   it('should throw an error when no player parameter is provided in the presentation', async () => {
     const widgetOptions = {
+      ...mockConfiguration.widgetOptions as WidgetOptions,
       playbackMode: 'inline-autoload',
     } as WidgetOptions;
 
@@ -164,6 +178,7 @@ describe('PlayerComponent', () => {
   describe('playerParameters', () => {
     it('should set player parameters in iframe src', () => {
       const widgetOptions = {
+        ...mockConfiguration.widgetOptions as WidgetOptions,
         playbackMode: 'inline-autoload',
       } as WidgetOptions;
 
@@ -201,6 +216,7 @@ describe('PlayerComponent', () => {
   describe('widgetOptions', () => {
     it('should set playerConfigurationGuid parameter when provided', () => {
       const widgetOptions = {
+        ...mockConfiguration.widgetOptions as WidgetOptions,
         playbackMode: 'inline-autoload',
         playerConfigurationGuid: 'config-guid-123',
       } as WidgetOptions;

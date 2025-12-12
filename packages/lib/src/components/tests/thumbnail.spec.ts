@@ -4,7 +4,8 @@ import { createElement } from 'preact';
 import { ThumbnailComponent } from '../thumbnail';
 import { WidgetOptions } from '@/interfaces/widget-options';
 import { Presentation } from '@/interfaces/presentation';
-import type { PlayIconPosition } from '@/interfaces/play-icon';
+import { ConfigurationService } from '@/services/configuration.service';
+import type { PlayIcon, PlayIconPosition } from '@/interfaces/play-icon';
 
 vi.mock('../../../assets/play-icon.svg?raw', () => ({
   default: '<svg><circle cx="50" cy="50" r="40"/></svg>',
@@ -24,6 +25,13 @@ describe('ThumbnailComponent', () => {
     title: 'Test Presentation',
   };
 
+  const configurationService = new ConfigurationService();
+  const mockConfiguration = configurationService.setDefaults({
+    guid: 'test-guid',
+    host: 'https://example.com',
+    selector: '#widget-container',
+  });
+
   const mockOnClick = vi.fn();
 
   beforeEach(() => {
@@ -40,7 +48,7 @@ describe('ThumbnailComponent', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
         presentation: mockPresentation,
-        widgetOptions: {} as WidgetOptions,
+        widgetOptions: mockConfiguration.widgetOptions as WidgetOptions,
       }));
 
       const button = screen.getByRole('button');
@@ -65,7 +73,7 @@ describe('ThumbnailComponent', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
         presentation: presentationWithoutCdn,
-        widgetOptions: {} as WidgetOptions,
+        widgetOptions: mockConfiguration.widgetOptions as WidgetOptions,
       }));
 
       const image = screen.getByAltText('Thumbnail for Test Presentation');
@@ -79,7 +87,13 @@ describe('ThumbnailComponent', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
         presentation: mockPresentation,
-        widgetOptions: {} as WidgetOptions,
+        widgetOptions: {
+          ...mockConfiguration.widgetOptions as WidgetOptions,
+          playIcon: {
+            ...mockConfiguration.widgetOptions!.playIcon,
+            url: undefined as unknown as string,
+          } as PlayIcon,
+        },
       }));
 
       const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button--default');
@@ -91,6 +105,7 @@ describe('ThumbnailComponent', () => {
 
     it('should render custom play icon image when provided in options', () => {
       const widgetOptions = {
+        ...mockConfiguration.widgetOptions as WidgetOptions,
         playIcon: {
           height: 50,
           url: 'https://example.com/custom-play-icon.png',
@@ -115,8 +130,9 @@ describe('ThumbnailComponent', () => {
       });
     });
 
-    it('should apply width style when provided in play icon options', () => {
+    it('should apply width and height provided in play icon options', () => {
       const widgetOptions = {
+        ...mockConfiguration.widgetOptions as WidgetOptions,
         playIcon: {
           height: 40,
           url: '',
@@ -130,51 +146,10 @@ describe('ThumbnailComponent', () => {
         widgetOptions,
       }));
 
-      const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button');
+      const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button svg');
 
-      expect(playIcon).toHaveStyle({
-        height: '40px',
-        width: '60px',
-      });
-    });
-
-    it('should apply height style when provided in play icon options', () => {
-      const widgetOptions = {
-        playIcon: {
-          height: 75,
-          url: '',
-          width: 50,
-        },
-      } as WidgetOptions;
-
-      render(createElement(ThumbnailComponent, {
-        onClick: mockOnClick,
-        presentation: mockPresentation,
-        widgetOptions,
-      }));
-
-      const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button--default');
-
-      expect(playIcon).toHaveStyle({
-        height: '75px',
-        width: '50px',
-      });
-    });
-
-    it('should not apply size styles when not provided in options', () => {
-      render(createElement(ThumbnailComponent, {
-        onClick: mockOnClick,
-        presentation: mockPresentation,
-        widgetOptions: {
-          playIcon: {
-            url: 'https://example.com/custom-play-icon.png',
-          },
-        } as WidgetOptions,
-      }));
-
-      const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button');
-
-      expect(playIcon?.getAttribute('style')).toBeNull();
+      expect(playIcon!.getAttribute('width')).toBe('60');
+      expect(playIcon!.getAttribute('height')).toBe('40');
     });
 
     it('should position play icon based on options', () => {
@@ -191,6 +166,7 @@ describe('ThumbnailComponent', () => {
       };
 
       const widgetOptions = {
+        ...mockConfiguration.widgetOptions as WidgetOptions,
         playIcon: {
           height: 50,
           url: 'https://example.com/custom-play-icon.png',
@@ -222,7 +198,7 @@ describe('ThumbnailComponent', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
         presentation: mockPresentation,
-        widgetOptions: {} as WidgetOptions,
+        widgetOptions: mockConfiguration.widgetOptions as WidgetOptions,
       }));
 
       const button = screen.getByRole('button');
@@ -236,7 +212,7 @@ describe('ThumbnailComponent', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
         presentation: mockPresentation,
-        widgetOptions: {} as WidgetOptions,
+        widgetOptions: mockConfiguration.widgetOptions as WidgetOptions,
       }));
 
       const button = screen.getByRole('button');
@@ -270,55 +246,19 @@ describe('ThumbnailComponent', () => {
     });
   });
 
-  describe('Edge Cases', () => {
-    it('should handle partial play icon options', () => {
-      const widgetOptions = {
-        playIcon: {
-          width: 40,
-        },
-      } as WidgetOptions;
-
-      render(createElement(ThumbnailComponent, {
-        onClick: mockOnClick,
-        presentation: mockPresentation,
-        widgetOptions,
-      }));
-
-      const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button--default');
-      const playIconStyle = playIcon?.getAttribute('style');
-
-      expect(playIconStyle).not.toContain('height');
-      expect(playIconStyle).toContain('width: 40px;');
-    });
-
-    it('should handle empty play icon url', () => {
-      const widgetOptions = {
-        playIcon: {
-          height: 50,
-          url: '',
-          width: 50,
-        },
-      } as WidgetOptions;
-
-      render(createElement(ThumbnailComponent, {
-        onClick: mockOnClick,
-        presentation: mockPresentation,
-        widgetOptions,
-      }));
-
-      const playIcon = screen.getByRole('button').querySelector('.qc-thumbnail__play-button--default');
-
-      expect(playIcon).toBeInTheDocument();
-      expect(screen.queryByAltText('Play')).not.toBeInTheDocument();
-    });
-  });
-
   describe('Accessibility', () => {
     it('should have proper button type attribute', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
         presentation: mockPresentation,
-        widgetOptions: {} as WidgetOptions,
+        widgetOptions: {
+          ...mockConfiguration.widgetOptions as WidgetOptions,
+          playIcon: {
+            height: 100,
+            position: 'bottom-left',
+            width: 100,
+          },
+        } as WidgetOptions,
       }));
 
       const button = screen.getByRole('button');
@@ -330,7 +270,14 @@ describe('ThumbnailComponent', () => {
       render(createElement(ThumbnailComponent, {
         onClick: mockOnClick,
         presentation: mockPresentation,
-        widgetOptions: {} as WidgetOptions,
+        widgetOptions: {
+          ...mockConfiguration.widgetOptions as WidgetOptions,
+          playIcon: {
+            height: 100,
+            position: 'bottom-left',
+            width: 100,
+          },
+        } as WidgetOptions,
       }));
 
       const image = screen.getByAltText('Thumbnail for Test Presentation');
@@ -340,6 +287,7 @@ describe('ThumbnailComponent', () => {
 
     it('should have alt text for custom play icon', () => {
       const widgetOptions = {
+        ...mockConfiguration.widgetOptions as WidgetOptions,
         playIcon: {
           height: 50,
           url: 'https://example.com/custom-play-icon.png',
