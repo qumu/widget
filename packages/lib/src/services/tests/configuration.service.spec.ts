@@ -676,7 +676,7 @@ describe('ConfigurationService', () => {
           playIcon: {
             height: 100,
             position: 'top-right',
-            url: 'http://qumu.com/play-button.png',
+            url: 'https://qumu.com/play-button.png',
             width: 100,
           },
         },
