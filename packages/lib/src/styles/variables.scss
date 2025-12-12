@@ -22,9 +22,8 @@
   --qc-dialog-width: 90vw;
 
   // Thumbnail style
-  --qc-thumbnail-play-button-height: var(--qc-thumbnail-play-button-width);
-  --qc-thumbnail-play-button-margin: calc(var(--qc-thumbnail-play-button-width) / 5);
-  --qc-thumbnail-play-button-width: 64px;
+  --qc-thumbnail-play-button-margin: 16px;
+  --qc-thumbnail-play-button-padding: 8px;
   --qc-thumbnail-play-button-background-color: var(--qc-theme-background);
   --qc-thumbnail-play-button-background-opacity: 0.8;
   --qc-thumbnail-play-button-background-opacity-hover: 1;

@@ -23,23 +23,15 @@
     }
 
     &__play-button {
-      height: var(--qc-thumbnail-play-button-height);
       margin: var(--qc-thumbnail-play-button-margin);
       position: relative;
-      width: var(--qc-thumbnail-play-button-width);
 
       &--default {
         background-color: rgb(from var(--qc-thumbnail-play-button-background-color) r g b / var(--qc-thumbnail-play-button-background-opacity));
         border-radius: 100%;
         box-sizing: border-box;
         color: var(--qc-theme-color);
-        padding: 10px;
-
-        svg {
-          height: 100%;
-          position: relative;
-          width: 100%;
-        }
+        padding: var(--qc-thumbnail-play-button-padding);
       }
     }
 

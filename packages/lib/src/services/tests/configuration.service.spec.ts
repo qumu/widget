@@ -657,6 +657,11 @@ describe('ConfigurationService', () => {
 
       expect(result.widgetOptions).toEqual({
         playbackMode: 'inline',
+        playIcon: {
+          height: 44,
+          position: 'center',
+          width: 44,
+        },
       });
     });
 
@@ -667,14 +672,21 @@ describe('ConfigurationService', () => {
         selector: '#widget',
         widgetOptions: {
           playbackMode: 'modal',
+          playerConfigurationGuid: 'custom-guid',
+          playIcon: {
+            height: 100,
+            position: 'top-right',
+            url: 'https://qumu.com/play-button.png',
+            width: 100,
+          },
         },
       };
 
+      const initialWidgetOptions = JSON.parse(JSON.stringify(initialConfig.widgetOptions)) as unknown as WidgetOptions;
+
       const result = configurationService.setDefaults(initialConfig);
 
-      expect(result.widgetOptions).toEqual({
-        playbackMode: 'modal',
-      });
+      expect(result.widgetOptions).toEqual(initialWidgetOptions);
     });
   });
 });
