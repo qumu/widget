@@ -3,38 +3,37 @@ import { PresentationService } from '@/services/presentation.service';
 import { ConfigurationService } from '@/services/configuration.service';
 import { WidgetConfiguration } from '@/interfaces/widget-configuration';
 import { Presentation } from '@/interfaces/presentation';
-import { Deferred } from '@/utils/deferred';
 import { WidgetOptions } from '@/interfaces/widget-options';
 import { DialogComponent } from '@/components/dialog';
 import { PlayerComponent } from '@/components/player';
 import './presentation-widget.scss';
 
 export class PresentationWidget {
-  private readonly iframeDeferred = new Deferred<HTMLIFrameElement>();
   private readonly configurationService = new ConfigurationService();
   private readonly configuration: WidgetConfiguration;
   private readonly presentationService = new PresentationService();
   private presentation: Presentation | null = null;
+
+  static async create(
+    configuration: WidgetConfiguration,
+  ): Promise<PresentationWidget> {
+    const widget = new PresentationWidget(configuration);
+
+    return widget.init();
+  }
 
   constructor(
     initialConfiguration: WidgetConfiguration,
   ) {
     this.configuration = this.configurationService.validateAndSanitize(initialConfiguration);
     this.configuration = this.configurationService.setDefaults(this.configuration);
-    this.init();
   }
 
-  getIframe(): Promise<HTMLIFrameElement> {
-    return this.iframeDeferred.promise;
-  }
+  async init(): Promise<PresentationWidget> {
+    this.presentation = await this.presentationService.getPresentation(this.configuration.guid, this.configuration.host);
+    this.mount();
 
-  private async init() {
-    try {
-      this.presentation = await this.presentationService.getPresentation(this.configuration.guid, this.configuration.host);
-      this.mount();
-    } catch (err: unknown) {
-      this.iframeDeferred.reject(err);
-    }
+    return this;
   }
 
   private mount() {
@@ -53,16 +52,14 @@ export class PresentationWidget {
         {this.configuration.widgetOptions?.playbackMode === 'modal' ? (
           <DialogComponent
               presentation={this.presentation!}
-              onIframeReady={this.iframeDeferred.resolve}
               playerParameters={this.configuration.playerParameters!}
               widgetOptions={this.configuration.widgetOptions as WidgetOptions}
           />
         ) : (
           <PlayerComponent
-            presentation={this.presentation!}
-            onIframeReady={this.iframeDeferred.resolve}
-            playerParameters={this.configuration.playerParameters!}
-            widgetOptions={this.configuration.widgetOptions as WidgetOptions}
+              presentation={this.presentation!}
+              playerParameters={this.configuration.playerParameters!}
+              widgetOptions={this.configuration.widgetOptions as WidgetOptions}
           />
         )}
       </div>,

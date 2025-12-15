@@ -9,12 +9,11 @@ import closeIcon from '../../assets/close.svg?raw';
 
 interface Props {
   presentation: Presentation;
-  onIframeReady?: (iframe: HTMLIFrameElement) => void;
   playerParameters: Partial<PlayerParameters>;
   widgetOptions: WidgetOptions;
 }
 
-export function DialogComponent({ presentation, onIframeReady, widgetOptions, playerParameters }: Readonly<Props>) {
+export function DialogComponent({ presentation, widgetOptions, playerParameters }: Readonly<Props>) {
   const [showDialog, setShowDialog] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -63,7 +62,6 @@ export function DialogComponent({ presentation, onIframeReady, widgetOptions, pl
           </button>
           <PlayerComponent
               presentation={presentation}
-              onIframeReady={onIframeReady}
               playerParameters={playerParameters}
               widgetOptions={widgetOptions}
           />

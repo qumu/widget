@@ -42,7 +42,7 @@ describe('DialogComponent', () => {
     title: 'Test Presentation',
   };
 
-  const mockOptions: WidgetOptions = {
+  const mockOptions = {
     playbackMode: 'modal' as const,
     playerConfigurationGuid: 'test-config',
     playIcon: {
@@ -51,9 +51,7 @@ describe('DialogComponent', () => {
       url: 'https://example.com/play-icon.svg',
       width: 64,
     },
-  };
-
-  const mockOnIframeReady = vi.fn();
+  } as unknown as WidgetOptions;
 
   beforeAll(() => {
     Object.defineProperty(HTMLElement.prototype, 'showModal', {
@@ -73,7 +71,6 @@ describe('DialogComponent', () => {
 
   it('should render empty string when presentation is null', () => {
     const { container } = render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: null as unknown as Presentation,
       widgetOptions: mockOptions,
@@ -84,7 +81,6 @@ describe('DialogComponent', () => {
 
   it('should render thumbnail component when presentation is provided', async () => {
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: mockOptions,
@@ -98,7 +94,6 @@ describe('DialogComponent', () => {
 
   it('should show dialog when thumbnail is clicked', async () => {
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: mockOptions,
@@ -117,7 +112,6 @@ describe('DialogComponent', () => {
 
   it('should render PlayerComponent in dialog', async () => {
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: mockOptions,
@@ -139,7 +133,6 @@ describe('DialogComponent', () => {
     const closeSpy = vi.fn();
 
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: mockOptions,
@@ -172,7 +165,6 @@ describe('DialogComponent', () => {
     const closeSpy = vi.fn();
 
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: mockOptions,
@@ -201,7 +193,6 @@ describe('DialogComponent', () => {
     const closeSpy = vi.fn();
 
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: mockOptions,
@@ -232,7 +223,6 @@ describe('DialogComponent', () => {
 
   it('should handle dialog onClose event', async () => {
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: mockOptions,
@@ -266,7 +256,6 @@ describe('DialogComponent', () => {
     };
 
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: optionsWithAutoplay,
@@ -290,7 +279,6 @@ describe('DialogComponent', () => {
     };
 
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: optionsWithAutoplayFalse,
@@ -314,7 +302,6 @@ describe('DialogComponent', () => {
     };
 
     render(createElement(DialogComponent, {
-      onIframeReady: mockOnIframeReady,
       playerParameters: {},
       presentation: mockPresentation,
       widgetOptions: optionsWithAutoplayNull,

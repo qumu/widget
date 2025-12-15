@@ -3,7 +3,7 @@ import { WidgetConfiguration } from '@/interfaces/widget-configuration';
 import { WidgetOptions } from '@/interfaces/widget-options';
 
 const supportedConfigFields = new Set(['selector', 'host', 'guid', 'widgetOptions', 'playerParameters']);
-const supportedWidgetFields = new Set(['playbackMode', 'playerConfigurationGuid', 'playIcon', 'onThumbnailClick']);
+const supportedWidgetFields = new Set(['playbackMode', 'playerConfigurationGuid', 'playIcon', 'onIframeLoaded', 'onThumbnailClick']);
 const supportedPlayerParameterFields = new Set(['captions', 'debug', 'loop', 'pv', 'quality', 'showControlPanel', 'sidebar', 'speech', 'speechTerm', 'start', 'volume', 'reporting', 'reportingId']);
 
 export class ConfigurationService {
@@ -119,6 +119,12 @@ export class ConfigurationService {
 
       if (![undefined, 'inline', 'modal'].includes(widgetOptions.playbackMode)) {
         console.warn('`widgetOptions.playIcon` is only applicable when `widgetOptions.playbackMode` is either "modal" or "inline"');
+      }
+    }
+
+    if (widgetOptions.onIframeLoaded !== undefined) {
+      if (typeof widgetOptions.onIframeLoaded !== 'function') {
+        throw new TypeError('`widgetOptions.onIframeLoaded` must be a function');
       }
     }
 
