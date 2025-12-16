@@ -132,15 +132,15 @@ describe('PlayerComponent', () => {
     expect(screen.queryByAltText('Thumbnail for Test Presentation')).not.toBeInTheDocument();
   });
 
-  it('should call onIframeReady when iframe loads', () => {
-    const onIframeReady = vi.fn();
+  it('should call onIframeLoaded when iframe loads', () => {
+    const onIframeLoaded = vi.fn();
     const widgetOptions: WidgetOptions = {
       ...mockConfiguration.widgetOptions as WidgetOptions,
+      onIframeLoaded,
       playbackMode: 'inline-autoload',
     } as WidgetOptions;
 
     render(createElement(PlayerComponent, {
-      onIframeReady,
       playerParameters: {} as PlayerParameters,
       presentation: mockPresentation,
       widgetOptions,
@@ -150,7 +150,7 @@ describe('PlayerComponent', () => {
 
     fireEvent.load(iframe);
 
-    expect(onIframeReady).toHaveBeenCalledWith(iframe);
+    expect(onIframeLoaded).toHaveBeenCalledWith(iframe);
   });
 
   it('should throw an error when no player parameter is provided in the presentation', async () => {

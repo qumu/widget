@@ -6,12 +6,11 @@ import { PlayerParameters } from '@/interfaces/player-parameters';
 
 interface Props {
   presentation: Presentation;
-  onIframeReady?: (iframe: HTMLIFrameElement) => void;
   playerParameters: Partial<PlayerParameters>;
   widgetOptions: WidgetOptions;
 }
 
-export function PlayerComponent({ presentation, onIframeReady, widgetOptions, playerParameters }: Readonly<Props>) {
+export function PlayerComponent({ presentation, widgetOptions, playerParameters }: Readonly<Props>) {
   const [showIframe, setShowIframe] = useState(['inline-autoload', 'inline-autoplay', 'modal'].includes(widgetOptions.playbackMode));
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -23,7 +22,7 @@ export function PlayerComponent({ presentation, onIframeReady, widgetOptions, pl
     const iframe = iframeRef.current;
 
     const handleLoad = () => {
-      onIframeReady?.(iframe);
+      widgetOptions.onIframeLoaded?.(iframe);
     };
 
     iframe.addEventListener('load', handleLoad);
@@ -48,21 +47,21 @@ export function PlayerComponent({ presentation, onIframeReady, widgetOptions, pl
 
   const iframe = (
     <iframe
-      ref={iframeRef}
-      src={url.toString()}
-      width="100%"
-      height="100%"
-      allow="autoplay; fullscreen"
-      title="Qumu Player"
-      class="qc-player"
+        ref={iframeRef}
+        src={url.toString()}
+        width="100%"
+        height="100%"
+        allow="autoplay; fullscreen"
+        title="Qumu Player"
+        class="qc-player"
     />
   );
 
   const thumbnail = (
     <ThumbnailComponent
-      presentation={presentation}
-      onClick={() => setShowIframe(true)}
-      widgetOptions={widgetOptions}
+        presentation={presentation}
+        onClick={() => setShowIframe(true)}
+        widgetOptions={widgetOptions}
     />
   )
 

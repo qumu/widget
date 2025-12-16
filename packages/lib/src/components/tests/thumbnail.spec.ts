@@ -227,6 +227,7 @@ describe('ThumbnailComponent', () => {
     it('should call onThumbnailClick from widgetOptions if provided', () => {
       const mockOnThumbnailClick = vi.fn();
       const widgetOptions = {
+        ...mockConfiguration.widgetOptions as WidgetOptions,
         onThumbnailClick: mockOnThumbnailClick,
       } as unknown as WidgetOptions;
 

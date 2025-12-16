@@ -14,7 +14,7 @@ A Qumu Widget library that provides the following widgets:
   <script type="module">
     import { PresentationWidget } from '@enghouse-qumu/widget/presentation-widget.js';
 
-    const presentationWidget = new PresentationWidget({
+    const presentationWidget = await PresentationWidget.create({
       // CSS selector for the container element where the widget will be rendered
       selector: '#widget-container',
 

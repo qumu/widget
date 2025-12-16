@@ -65,7 +65,7 @@
       try {
 
 
-        const presentationWidget = new PresentationWidget({
+        const presentationWidget = await PresentationWidget.create({
           // The CSS selector for the container element where the widget will be rendered
           // We force this element to exist in the DOM
           // selector: document.getElementById('presentation-widget-container'),
@@ -101,8 +101,22 @@
             //   position: 'bottom-right',
             // },
 
-            onThumbnailClick: () => {
-              console.log('# Presentation widget clicked!!!');
+            // onThumbnailClick: (presentation) => {
+            //   console.log('# Presentation widget clicked!!!', presentation);
+            // },
+
+            onIframeLoaded: async (iframe) => {
+              console.log('# Presentation widget iframe loaded!!!', iframe);
+
+              const sdk = new PlayerSdk(iframe);
+
+              sdk.addEventListener('timeupdate', (newTime) => {
+                console.log('timeupdate', newTime);
+              });
+
+              const duration = await sdk.getDuration();
+
+              console.log('duration', duration);
             },
           },
           playerParameters: {
@@ -122,20 +136,8 @@
             reportingId: 'my-reporting-id-12345',
           },
         });
-
-        presentationWidget.getIframe().then(async (iframe) => {
-          const sdk = new PlayerSdk(iframe);
-
-          sdk.addEventListener('timeupdate', (newTime) => {
-            console.log('timeupdate', newTime);
-          });
-
-          const duration = await sdk.getDuration();
-
-          console.log('duration', duration);
-        });
       } catch (error) {
-        console.error('Error initializing PresentationWidget:', error);
+        console.error('Error initializing PresentationWidget (caught):', error);
       }
 
     </script>

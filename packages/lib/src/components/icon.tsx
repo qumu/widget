@@ -8,7 +8,7 @@ interface Props {
 }
 
 export function IconComponent({ svg, width, height, class: classNames }: Readonly<Props>) {
-  const svgRef = useRef<HTMLIFrameElement>(null);
+  const svgRef = useRef<HTMLElement>(null);
   const [classes, setClasses] = useState(['qc-icon']);
 
   useEffect(() => {

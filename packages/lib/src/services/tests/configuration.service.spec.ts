@@ -593,14 +593,36 @@ describe('ConfigurationService', () => {
       });
     });
 
+    describe('onIframeLoaded validation', () => {
+      it('should throw error when onIframeLoaded is not a function', () => {
+        const invalidValues = ['', 123, true, null, {}];
+
+        invalidValues.forEach((value) => {
+          expect(() => configurationService.validateWidgetOptions({
+            onIframeLoaded: value as unknown as WidgetOptions['onIframeLoaded'],
+            playbackMode: 'modal',
+          } as WidgetOptions)).toThrow(
+            '`widgetOptions.onIframeLoaded` must be a function',
+          );
+        });
+      });
+
+      it('should allow onIframeLoaded to be a function', () => {
+        expect(() => configurationService.validateWidgetOptions({
+          onIframeLoaded: () => {},
+          playbackMode: 'modal',
+        } as Partial<WidgetOptions>)).not.toThrow();
+      });
+    });
+
     describe('onThumbnailClick validation', () => {
       it('should throw error when onThumbnailClick is not a function', () => {
         const invalidValues = ['', 123, true, null, {}];
 
         invalidValues.forEach((value) => {
           expect(() => configurationService.validateWidgetOptions({
-            playbackMode: 'inline',
             onThumbnailClick: value as unknown as WidgetOptions['onThumbnailClick'],
+            playbackMode: 'inline',
           } as WidgetOptions)).toThrow(
             '`widgetOptions.onThumbnailClick` must be a function',
           );

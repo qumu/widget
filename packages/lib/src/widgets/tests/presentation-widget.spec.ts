@@ -56,53 +56,26 @@ describe('PresentationWidget', () => {
   });
 
   describe('constructor', () => {
-    it('should initialize widget', () => {
-      const widget = new PresentationWidget(mockConfiguration);
+    it('should initialize widget', async () => {
+      const widget = await PresentationWidget.create(mockConfiguration);
 
       expect(widget).toBeDefined();
     });
 
-    it('should validate the configuration and throw an error', () => {
+    it('should validate the configuration and throw an error', async () => {
       const invalidConfig = {
         ...mockConfiguration,
         host: '   ',
       };
 
-      expect(() => new PresentationWidget(invalidConfig)).toThrow('`host` cannot be an empty string');
-    });
-  });
-
-  describe('getIframe', () => {
-    it('should return a promise that resolves to HTMLIFrameElement', async () => {
-      const widget = new PresentationWidget(mockConfiguration);
-      const iframePromise = widget.getIframe();
-
-      expect(iframePromise).toBeInstanceOf(Promise);
-
-      await new Promise((resolve) => setTimeout(resolve, 0));
-
-      expect(getPresentationMock).toHaveBeenCalledWith(
-        'test-guid',
-        'example.com',
-      );
-    });
-
-    it('should reject promise when presentation service fails', async () => {
-      const error = new Error('Service error');
-
-      getPresentationMock.mockRejectedValue(error);
-
-      const widget = new PresentationWidget(mockConfiguration);
-      const iframePromise = widget.getIframe();
-
-      await expect(iframePromise).rejects.toThrow('Service error');
+      await expect(() => PresentationWidget.create(invalidConfig)).rejects.toThrow('`host` cannot be an empty string');
     });
   });
 
   describe('init', () => {
     it('should fetch presentation and mount component', async () => {
-      // eslint-disable-next-line no-new
-      new PresentationWidget(mockConfiguration);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const widget = await PresentationWidget.create(mockConfiguration);
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -119,9 +92,7 @@ describe('PresentationWidget', () => {
     it('throws error when container element is not found', async () => {
       document.querySelector = vi.fn().mockReturnValue(null);
 
-      const widget = new PresentationWidget(mockConfiguration);
-
-      await expect(widget.getIframe()).rejects.toThrow('Element for selector ".widget-container" not found');
+      await expect(async () => await PresentationWidget.create(mockConfiguration)).rejects.toThrow('Element for selector ".widget-container" not found');
     });
 
     it('handles presentation service errors', async () => {
@@ -129,16 +100,13 @@ describe('PresentationWidget', () => {
 
       getPresentationMock.mockRejectedValue(error);
 
-      const widget = new PresentationWidget(mockConfiguration);
-
-      await expect(widget.getIframe()).rejects.toThrow('Network error');
+      await expect(async () => await PresentationWidget.create(mockConfiguration)).rejects.toThrow('Network error');
     });
   });
 
   describe('mount', () => {
     it('renders widget with presentation title and player component', async () => {
-      // eslint-disable-next-line no-new
-      new PresentationWidget(mockConfiguration);
+      await PresentationWidget.create(mockConfiguration);
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -160,8 +128,7 @@ describe('PresentationWidget', () => {
         selector: element,
       };
 
-      // eslint-disable-next-line no-new
-      new PresentationWidget(configWithHTMLElement);
+      await PresentationWidget.create(configWithHTMLElement);
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -175,8 +142,7 @@ describe('PresentationWidget', () => {
     it('clears container innerHTML before mounting', async () => {
       mockContainer.innerHTML = '<div>existing content</div>';
 
-      // eslint-disable-next-line no-new
-      new PresentationWidget(mockConfiguration);
+      await PresentationWidget.create(mockConfiguration);
 
       // Wait for async init to complete
       await new Promise((resolve) => setTimeout(resolve, 0));
@@ -193,8 +159,7 @@ describe('PresentationWidget', () => {
         },
       };
 
-      // eslint-disable-next-line no-new
-      new PresentationWidget(modalConfiguration);
+      await PresentationWidget.create(modalConfiguration);
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -218,8 +183,7 @@ describe('PresentationWidget', () => {
         },
       };
 
-      // eslint-disable-next-line no-new
-      new PresentationWidget(nonModalConfiguration);
+      await PresentationWidget.create(nonModalConfiguration);
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -241,8 +205,7 @@ describe('PresentationWidget', () => {
         },
       };
 
-      // eslint-disable-next-line no-new
-      new PresentationWidget(configWithoutPlaybackMode);
+      await PresentationWidget.create(configWithoutPlaybackMode);
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
