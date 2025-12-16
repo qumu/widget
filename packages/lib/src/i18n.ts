@@ -1,4 +1,4 @@
-import { I18nService } from '@qumu/ui-shared-module-i18n';
+import { I18nService } from '@/services/i18n.service';
 import en from './locales/en.json';
 import fr from './locales/fr.json';
 import ja from './locales/ja.json';

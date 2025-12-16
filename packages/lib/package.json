@@ -17,7 +17,6 @@
   ],
   "type": "module",
   "scripts": {
-    "gcp:login": "npx google-artifactregistry-auth --yes",
     "build": "vite build",
     "dev:watch": "vite build --watch",
     "server": "vite",
@@ -46,8 +45,5 @@
   },
   "volta": {
     "node": "24.11.0"
-  },
-  "dependencies": {
-    "@qumu/ui-shared-module-i18n": "3.0.1"
   }
 }

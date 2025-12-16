@@ -10,6 +10,7 @@ interface Props {
 }
 
 export function ThumbnailComponent({ presentation, onClick, widgetOptions }: Readonly<Props>) {
+  const i18n = useI18n();
   const position = widgetOptions.playIcon?.position || 'center';
   const placeX = position.includes('left') ? 'start' : (position.includes('right') ? 'end' : 'center');
   const placeY = position.includes('top') ? 'start' : (position.includes('bottom') ? 'end' : 'center');
@@ -20,7 +21,7 @@ export function ThumbnailComponent({ presentation, onClick, widgetOptions }: Rea
 
   return (
     <button type="button" class="qc-thumbnail" onClick={clickHandler} style={{ 'place-items': `${placeY} ${placeX}` }}>
-      <span class="qc-sr-only">{useI18n().t('common.PLAY_PRESENTATION', { title: presentation.title! })}</span>
+      <span class="qc-sr-only">{i18n.t('common.PLAY_PRESENTATION', { title: presentation.title! })}</span>
       <img
         class="qc-thumbnail__image"
         src={presentation.thumbnail?.cdnUrl || presentation.thumbnail?.url}
