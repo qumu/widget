@@ -29,17 +29,21 @@ export class PresentationWidgetComponent extends LitElement {
     return this;
   }
 
-  async firstUpdated() {
+  firstUpdated() {
     const container = this.renderRoot.querySelector<HTMLDivElement>('#container');
 
     if (!container) {
       return;
     }
 
-    this.widget = await PresentationWidget.create({
+    PresentationWidget.create({
       selector: container,
       ...this.configuration,
-    });
+    })
+      .then((widget) => {
+        this.widget = widget;
+      })
+      .catch((e) => console.error(e));
   }
 
   render() {
