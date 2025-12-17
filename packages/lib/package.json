@@ -1,6 +1,5 @@
 {
   "name": "lib",
-  "version": "1.0.0-beta.4",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
   "exports": {
@@ -21,6 +20,7 @@
     "dev:watch": "vite build --watch",
     "server": "vite",
     "lint": "eslint",
+    "prepublishOnly": "node scripts/prepublishOnly.js",
     "test": "vitest run",
     "test:cov": "vitest run --coverage",
     "test:watch": "vitest watch"
