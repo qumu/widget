@@ -73,6 +73,6 @@ jobs:
           fi
           
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          npm publish --workspace lib --tag $TAG
+          npm publish --workspace lib --tag $TAG --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
