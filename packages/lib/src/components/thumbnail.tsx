@@ -1,6 +1,7 @@
 import { Presentation } from '@/interfaces/presentation';
 import { WidgetOptions } from '@/interfaces/widget-options';
 import PlayIcon from '@/icons/play.svg?react';
+import { useI18n } from '@/i18n';
 
 interface Props {
   onClick: () => void;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function ThumbnailComponent({ presentation, onClick, widgetOptions }: Readonly<Props>) {
+  const i18n = useI18n();
   const position = widgetOptions.playIcon?.position || 'center';
   const placeX = position.includes('left') ? 'start' : (position.includes('right') ? 'end' : 'center');
   const placeY = position.includes('top') ? 'start' : (position.includes('bottom') ? 'end' : 'center');
@@ -19,14 +21,15 @@ export function ThumbnailComponent({ presentation, onClick, widgetOptions }: Rea
 
   return (
     <button type="button" class="qc-thumbnail" onClick={clickHandler} style={{ 'place-items': `${placeY} ${placeX}` }}>
+      <span class="qc-sr-only">{i18n.t('common.PLAY_PRESENTATION', { title: presentation.title! })}</span>
       <img
         class="qc-thumbnail__image"
         src={presentation.thumbnail?.cdnUrl || presentation.thumbnail?.url}
-        alt={`Thumbnail for ${presentation.title}`}
+        alt=""
       />
       {widgetOptions.playIcon?.url ? (
         <img
-          alt="Play"
+          alt=""
           class="qc-thumbnail__play-button"
           src={widgetOptions.playIcon?.url}
           style={{

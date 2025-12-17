@@ -1,0 +1,6 @@
+{
+    "common": {
+        "PLAY_PRESENTATION": "Jouer la présentation : {{title}}",
+        "Presentation not found": "Présentation introuvable"
+    }
+}
