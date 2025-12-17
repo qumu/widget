@@ -4,6 +4,7 @@ import { html } from 'lit';
 import type { PlayerParameters, WidgetConfiguration, WidgetOptions } from 'lib';
 import '../components/presentation-widget.js';
 import type { PresentationWidgetComponent } from '../components/presentation-widget.ts';
+import { version } from '../../../../package.json';
 
 // taken from packages/lib/src/styles/variables.css
 const DEFAULT_CSS_VARIABLES = `--qc-theme-background-color: #09091a;
@@ -87,7 +88,7 @@ export const Localisation: Story = {
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widget@<version>/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widget@${version}/presentation-widget.css">
   </head>
   <body>
     <p>The widget below uses the lang attribute from the html tag</p>
@@ -97,7 +98,7 @@ export const Localisation: Story = {
     <div id="widget2" lang="fr"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widget@<version>/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widget@${version}/presentation-widget.js';
       
       PresentationWidget.create({
         host:'demo.qumucloud.com',
@@ -455,13 +456,13 @@ export const Playground: Story = {
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widget@<version>/presentation-widget.css">${cssVariables}
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widget@${version}/presentation-widget.css">${cssVariables}
   </head>
   <body>
     <div id="widget"></div>
     
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widget@<version>/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widget@${version}/presentation-widget.js';
       
       PresentationWidget.create(${
         JSON.stringify(configuration, null, 2)
