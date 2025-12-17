@@ -10,9 +10,10 @@ interface Props {
   presentation: Presentation;
   playerParameters: Partial<PlayerParameters>;
   widgetOptions: Partial<WidgetOptions>;
+  aspectRatio?: string;
 }
 
-export function DialogComponent({ presentation, widgetOptions, playerParameters }: Readonly<Props>) {
+export function DialogComponent({ presentation, widgetOptions, playerParameters, aspectRatio }: Readonly<Props>) {
   const [showDialog, setShowDialog] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -33,10 +34,6 @@ export function DialogComponent({ presentation, widgetOptions, playerParameters 
     return '';
   }
 
-  const aspectRatio = presentation?.mediaDisplayWidth && presentation?.mediaDisplayHeight
-      ? `${presentation.mediaDisplayWidth} / ${presentation.mediaDisplayHeight}`
-      : '16 / 9';
-
   return (
     <div class="qc-dialog">
       <ThumbnailComponent
@@ -54,7 +51,7 @@ export function DialogComponent({ presentation, widgetOptions, playerParameters 
             }
           }}
           onClose={() => setShowDialog(false)}
-          style={{ 'aspect-ratio': aspectRatio }}
+          style={{ 'aspect-ratio': aspectRatio || '16 / 9' }}
         >
           <button
               type="button"

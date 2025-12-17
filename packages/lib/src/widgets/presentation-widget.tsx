@@ -86,6 +86,7 @@ export class PresentationWidget {
         {this.presentation ? (
           this.configuration.widgetOptions?.playbackMode === 'modal' ? (
             <DialogComponent
+              aspectRatio={aspectRatio}
               presentation={this.presentation}
               playerParameters={this.configuration.playerParameters!}
               widgetOptions={this.configuration.widgetOptions as WidgetOptions}
