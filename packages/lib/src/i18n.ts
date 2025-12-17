@@ -11,7 +11,11 @@ import ja from './locales/ja.json';
 function getLanguage(element: HTMLElement): string {
   const closestElement = element.closest<HTMLElement>('[lang]');
 
-  return closestElement ? closestElement.lang : 'en';
+  if (closestElement) {
+    return closestElement.lang;
+  }
+
+  return window.navigator.language || 'en';
 }
 
 let i18nService: I18nService;
