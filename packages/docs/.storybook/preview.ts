@@ -29,6 +29,7 @@ export const decorators = [
   (storyFn: () => any, { globals }: StoryContext) => {
     // Sets the whole document's locale
     document.documentElement.lang = globals.locale;
+    // Sets the whole document's color scheme
     document.documentElement.style.colorScheme = globals.backgrounds.value === 'dark' ? 'dark' : 'light';
 
     return storyFn();
@@ -69,7 +70,7 @@ const preview: Preview = {
         ],
       },
     }
-  }
+  },
 };
 
 export default preview;
