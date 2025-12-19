@@ -20,11 +20,6 @@ function getLanguage(element: HTMLElement): string {
 let i18nService: I18nService;
 
 export function createI18n(element: HTMLElement, locales?: WidgetConfiguration['locales']) {
-  console.log('locales', {
-    en,
-    ...locales,
-  });
-
   i18nService = new I18nService({
     locale: getLanguage(element),
     messages: {
