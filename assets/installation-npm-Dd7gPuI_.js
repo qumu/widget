@@ -1,4 +1,4 @@
-import{j as e,M as o}from"./blocks-BcLGNEOu.js";import{useMDXComponents as s}from"./index-DdJvIMxf.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-znuil1us.js";function i(t){const n={code:"code",h1:"h1",h2:"h2",h3:"h3",p:"p",pre:"pre",...s(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsx(o,{title:"Getting Started/Installation/Via NPM"}),`
+import{j as e,M as o}from"./blocks-DCZ885Os.js";import{useMDXComponents as s}from"./index-PhdQthCP.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-CodwP2Y6.js";function i(t){const n={code:"code",h1:"h1",h2:"h2",h3:"h3",p:"p",pre:"pre",...s(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsx(o,{title:"Getting Started/Installation/Via NPM"}),`
 `,e.jsx(n.h1,{id:"installation-via-npm",children:"Installation via NPM"}),`
 `,e.jsx(n.p,{children:"Use this method if you use a bundler (Webpack, Rollup, Vite)"}),`
 `,e.jsx(n.h2,{id:"installation",children:"Installation"}),`

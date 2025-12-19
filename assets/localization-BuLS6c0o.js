@@ -1,4 +1,4 @@
-import{j as e,M as d,C as a}from"./blocks-BcLGNEOu.js";import{useMDXComponents as l}from"./index-DdJvIMxf.js";import{Localization as s}from"./localization.stories-QshSMrT2.js";import{T as o}from"./Tip-5h61O13q.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-znuil1us.js";import"./package-BixljKZz.js";function t(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",li:"li",p:"p",pre:"pre",ul:"ul",...l(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Localization"}),`
+import{j as e,M as d,C as a}from"./blocks-DCZ885Os.js";import{useMDXComponents as l}from"./index-PhdQthCP.js";import{Localization as s}from"./localization.stories-BRMP0vs3.js";import{T as o}from"./Tip-BwdMiOaw.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-CodwP2Y6.js";import"./package-BixljKZz.js";function t(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",li:"li",p:"p",pre:"pre",ul:"ul",...l(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Localization"}),`
 `,e.jsx(n.h1,{id:"localization",children:"Localization"}),`
 `,e.jsx(n.p,{children:"Widgets support the following languages:"}),`
 `,e.jsxs(n.ul,{children:[`

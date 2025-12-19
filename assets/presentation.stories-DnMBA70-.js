@@ -47,13 +47,13 @@ import{v as i,o as s,p as l,j as c,i as d,f as u,e as p,d as m}from"./package-Bi
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@${i}/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@${i}/dist/presentation-widget.css">
   </head>
   <body>
     <div id="widget"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@${i}/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@${i}/dist/presentation-widget.js';
 
       PresentationWidget.create({
         guid: 'JN6JHrg17xpwF8klXSIfFj',
@@ -67,13 +67,13 @@ import{v as i,o as s,p as l,j as c,i as d,f as u,e as p,d as m}from"./package-Bi
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@${i}/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@${i}/dist/presentation-widget.css">
   </head>
   <body>
     <div id="widget"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@${i}/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@${i}/dist/presentation-widget.js';
 
       PresentationWidget.create({
         guid: 'JN6JHrg17xpwF8klXSIfFj',
@@ -90,13 +90,13 @@ import{v as i,o as s,p as l,j as c,i as d,f as u,e as p,d as m}from"./package-Bi
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@${i}/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@${i}/dist/presentation-widget.css">
   </head>
   <body>
     <div id="widget"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@${i}/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@${i}/dist/presentation-widget.js';
 
       PresentationWidget.create({
         guid: 'JN6JHrg17xpwF8klXSIfFj',
@@ -118,13 +118,13 @@ import{v as i,o as s,p as l,j as c,i as d,f as u,e as p,d as m}from"./package-Bi
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@${i}/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@${i}/dist/presentation-widget.css">
   </head>
   <body>
     <div id="widget"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@${i}/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@${i}/dist/presentation-widget.js';
       import { PlayerSdk } from "https://unpkg.com/@enghouse-qumu/player-sdk@3.2.1/dist/index.modern.mjs";
 
       PresentationWidget.create({
@@ -186,13 +186,13 @@ import{v as i,o as s,p as l,j as c,i as d,f as u,e as p,d as m}from"./package-Bi
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@\${version}/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@\${version}/dist/presentation-widget.css">
   </head>
   <body>
     <div id="widget"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@\${version}/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@\${version}/dist/presentation-widget.js';
 
       PresentationWidget.create({
         guid: 'JN6JHrg17xpwF8klXSIfFj',
@@ -231,13 +231,13 @@ import{v as i,o as s,p as l,j as c,i as d,f as u,e as p,d as m}from"./package-Bi
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@\${version}/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@\${version}/dist/presentation-widget.css">
   </head>
   <body>
     <div id="widget"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@\${version}/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@\${version}/dist/presentation-widget.js';
 
       PresentationWidget.create({
         guid: 'JN6JHrg17xpwF8klXSIfFj',
@@ -305,13 +305,13 @@ import{v as i,o as s,p as l,j as c,i as d,f as u,e as p,d as m}from"./package-Bi
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@\${version}/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@\${version}/dist/presentation-widget.css">
   </head>
   <body>
     <div id="widget"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@\${version}/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@\${version}/dist/presentation-widget.js';
 
       PresentationWidget.create({
         guid: 'JN6JHrg17xpwF8klXSIfFj',
@@ -366,13 +366,13 @@ import{v as i,o as s,p as l,j as c,i as d,f as u,e as p,d as m}from"./package-Bi
   <head>
     <meta charset="UTF-8"/>
     <title>Presentation Widget</title>
-    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@\${version}/presentation-widget.css">
+    <link rel="stylesheet" href="https://unpkg.com/@enghouse-qumu/widgets@\${version}/dist/presentation-widget.css">
   </head>
   <body>
     <div id="widget"></div>
 
     <script type="module">
-      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@\${version}/presentation-widget.js';
+      import { PresentationWidget } from 'https://unpkg.com/@enghouse-qumu/widgets@\${version}/dist/presentation-widget.js';
       import { PlayerSdk } from "https://unpkg.com/@enghouse-qumu/player-sdk@3.2.1/dist/index.modern.mjs";
 
       PresentationWidget.create({
