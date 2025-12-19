@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/web-components-vite';
 import './preview.css';
+import { StoryContext } from 'storybook/internal/types';
 
 // Adds a locale switcher in the toolbar
 export const globalTypes = {
@@ -25,9 +26,10 @@ export const globalTypes = {
 
 // 🧩 Inject locale into your components or global context
 export const decorators = [
-  (storyFn: () => any, context: { globals: { locale: string; }; }) => {
+  (storyFn: () => any, { globals }: StoryContext) => {
     // Sets the whole document's locale
-    document.documentElement.lang = context.globals.locale;
+    document.documentElement.lang = globals.locale;
+    document.documentElement.style.colorScheme = globals.backgrounds.value === 'dark' ? 'dark' : 'light';
 
     return storyFn();
   },
@@ -35,6 +37,13 @@ export const decorators = [
 
 const preview: Preview = {
   parameters: {
+    backgrounds: {
+      options: {
+        // 👇 Default options
+        dark: { name: 'Dark', value: '#000' },
+        light: { name: 'Light', value: '#fff' },
+      },
+    },
     docs: {
       toc: {
         headingSelector: 'h2, h3',
@@ -60,8 +69,7 @@ const preview: Preview = {
         ],
       },
     }
-
-  },
+  }
 };
 
 export default preview;

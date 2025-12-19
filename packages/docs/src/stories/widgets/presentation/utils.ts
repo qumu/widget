@@ -152,10 +152,10 @@ export const DEFAULT_CSS_VARIABLES = `
 --qc-close-button-active-background-color: #000;
 --qc-close-button-active-color: #fff;
 
---qc-not-found-border: 1px solid rgb(0 0 0 / .15);
+--qc-not-found-border: 1px solid light-dark(rgb(0 0 0 / .15), rgb(255 255 255 / .15));
 --qc-not-found-background-color: transparent;
---qc-not-found-color: #000;
---qc-not-found-icon-color: rgb(0 0 0 / .25);
+--qc-not-found-color: light-dark(#000, #fff);
+--qc-not-found-icon-color: light-dark(rgb(0 0 0 / .25), rgb(255 255 255 / .25));
 `;
 
 const defaultVariablesMap = DEFAULT_CSS_VARIABLES
