@@ -115,37 +115,48 @@ export function getPlaygroundConfigurationFromArgs(args: Partial<Args>): Omit<Wi
 }
 
 // taken from packages/lib/src/styles/variables.css
-export const DEFAULT_CSS_VARIABLES = `--qc-theme-background-color: #09091a;
---qc-theme-color: #f5f8fa;
-
+export const DEFAULT_CSS_VARIABLES = `
 --qc-presentation-widget-border-radius: 0;
 --qc-presentation-widget-height: 100%;
 --qc-presentation-widget-width: 100%;
 
 --qc-thumbnail-image-fit: cover;
 
---qc-thumbnail-play-button-margin: 16px;
---qc-thumbnail-play-button-padding: 8px;
---qc-thumbnail-play-button-background-color: var(--qc-theme-background-color);
---qc-thumbnail-play-button-background-opacity: 0.8;
---qc-thumbnail-play-button-background-opacity-hover: 1;
+--qc-play-button-background-color: rgb(0 0 0 / .8);
+--qc-play-button-color: #fff;
+--qc-play-button-margin: 16px;
+--qc-play-button-padding: 8px;
 
---qc-dialog-backdrop: rgb(0 0 0 / 0.5);
+--qc-play-button-hover-background-color: #000;
+--qc-play-button-hover-color: #fff;
+
+--qc-play-button-active-background-color: rgb(0 0 0 / .9);
+--qc-play-button-active-color: #fff;
+
+--qc-dialog-backdrop-color: rgb(0 0 0 / .5);
 --qc-dialog-background-color: #000;
---qc-dialog-border-color: #000;
+--qc-dialog-border: 3px solid #000;
 --qc-dialog-border-radius: 0;
---qc-dialog-border-style: solid;
---qc-dialog-border-width: 3px;
---qc-dialog-close-button-background-color: var(--qc-theme-background-color);
---qc-dialog-close-button-background-opacity: 0.8;
---qc-dialog-close-button-background-opacity-hover: 1;
---qc-dialog-close-button-color: var(--qc-theme-color);
---qc-dialog-close-button-padding: 6px;
---qc-dialog-close-button-shadow: 0 0 1px 1px #000000;
---qc-dialog-close-icon-size: 20px;
 --qc-dialog-padding: 0;
---qc-dialog-width-max: 1100px;
---qc-dialog-width: 90vw;`;
+--qc-dialog-max-width: 1100px;
+--qc-dialog-width: 90vw;
+
+--qc-close-button-background-color: rgb(0 0 0 / .75);
+--qc-close-button-padding: 6px;
+--qc-close-button-shadow: 0 0 1px 1px #000;
+--qc-close-button-icon-size: 14px;
+
+--qc-close-button-hover-background-color: rgb(0 0 0 / .9);
+--qc-close-button-hover-color: #fff;
+
+--qc-close-button-active-background-color: #000;
+--qc-close-button-active-color: #fff;
+
+--qc-not-found-border: 1px solid light-dark(rgb(0 0 0 / .15), rgb(255 255 255 / .15));
+--qc-not-found-background-color: transparent;
+--qc-not-found-color: light-dark(#000, #fff);
+--qc-not-found-icon-color: light-dark(rgb(0 0 0 / .25), rgb(255 255 255 / .25));
+`;
 
 const defaultVariablesMap = DEFAULT_CSS_VARIABLES
   .split('\n')

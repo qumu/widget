@@ -1,3 +1,9 @@
 .sbdocs-content table {
   width: 100%;
 }
+
+/* Break the CSS variables default value column to give some space to the definitions */
+#css-variables ~ table td:nth-child(2) code {
+  white-space: break-spaces;
+  line-height: 1.3;
+}
