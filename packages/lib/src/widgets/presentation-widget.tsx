@@ -1,6 +1,6 @@
 import { render } from 'preact';
 import { PresentationService } from '@/services/presentation.service';
-import { ConfigurationService } from '@/services/configuration.service';
+import { ConfigurationService } from '@/services/new-configuration.service';
 import { WidgetConfiguration } from '@/interfaces/widget-configuration';
 import { Presentation } from '@/interfaces/presentation';
 import { WidgetOptions } from '@/interfaces/widget-options';
@@ -9,9 +9,10 @@ import { PlayerComponent } from '@/components/player';
 import './presentation-widget.scss';
 import { NotFoundComponent } from '@/components/not-found';
 import { createI18n } from '@/i18n';
+import schema from './presentation-widget.schema';
 
 export class PresentationWidget {
-  private readonly configurationService = new ConfigurationService();
+  private readonly configurationService = new ConfigurationService(schema);
   private readonly configuration: WidgetConfiguration;
   private readonly presentationService = new PresentationService();
   private presentation: Presentation | null = null;
@@ -31,7 +32,9 @@ export class PresentationWidget {
   constructor(
     initialConfiguration: WidgetConfiguration,
   ) {
-    this.configuration = this.configurationService.createConfiguration(initialConfiguration);
+    this.configuration = this.configurationService.normalize(initialConfiguration);
+
+    console.log('configuration', this.configuration);
   }
 
   destroy() {
