@@ -109,9 +109,7 @@ describe('PresentationWidget', () => {
     it('throws error when container element is not found', async () => {
       vi.spyOn(document, 'querySelector').mockReturnValue(null);
 
-      await expect(async () => await PresentationWidget.create(mockConfiguration))
-        .rejects
-        .toThrow('Element for selector ".widget-container" not found');
+      await expect(async () => await PresentationWidget.create(mockConfiguration)).rejects.toThrow('Element for selector ".widget-container" not found');
     });
   });
 
