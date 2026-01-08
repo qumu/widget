@@ -13,16 +13,16 @@ import 'virtual:svg-icons-register';
 import { version } from '../../../../package.json' with { type: 'json' };
 
 export class PresentationWidget {
-  get version(): string {
-    return version;
-  }
-
   private readonly configurationService = new ConfigurationService();
   private readonly configuration: WidgetConfiguration;
   private readonly presentationService = new PresentationService();
   private presentation: Presentation | null = null;
   private container: Element | null = null;
   private destroyed = false;
+
+  get version(): string {
+    return version;
+  }
 
   static async create(
     configuration: WidgetConfiguration,

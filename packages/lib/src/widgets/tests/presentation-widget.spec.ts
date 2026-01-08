@@ -5,6 +5,9 @@ import { PresentationService } from '@/services/presentation.service';
 import { Presentation } from '@/interfaces/presentation';
 
 vi.mock('@/services/presentation.service');
+vi.mock('../../../../package.json', () => ({
+  version: '1.0.0',
+}));
 
 describe('PresentationWidget', () => {
   const mockConfiguration: WidgetConfiguration = {
@@ -75,6 +78,14 @@ describe('PresentationWidget', () => {
     });
   });
 
+  describe('version', () => {
+    it('should return the widget\'s version', async () => {
+      const widget = await PresentationWidget.create(mockConfiguration);
+
+      expect(widget.version).toEqual('1.0.0');
+    });
+  });
+
   describe('init', () => {
     it('should fetch presentation and mount component', async () => {
       const querySelectorSpy = vi.spyOn(document, 'querySelector');
@@ -98,7 +109,9 @@ describe('PresentationWidget', () => {
     it('throws error when container element is not found', async () => {
       vi.spyOn(document, 'querySelector').mockReturnValue(null);
 
-      await expect(async () => await PresentationWidget.create(mockConfiguration)).rejects.toThrow('Element for selector ".widget-container" not found');
+      await expect(async () => await PresentationWidget.create(mockConfiguration))
+        .rejects
+        .toThrow('Element for selector ".widget-container" not found');
     });
   });
 
