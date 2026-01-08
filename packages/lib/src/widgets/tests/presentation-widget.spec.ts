@@ -5,6 +5,9 @@ import { PresentationService } from '@/services/presentation.service';
 import { Presentation } from '@/interfaces/presentation';
 
 vi.mock('@/services/presentation.service');
+vi.mock('../../../../package.json', () => ({
+  version: '1.0.0',
+}));
 
 describe('PresentationWidget', () => {
   const mockConfiguration: WidgetConfiguration = {
@@ -72,6 +75,14 @@ describe('PresentationWidget', () => {
       };
 
       await expect(() => PresentationWidget.create(invalidConfig)).rejects.toThrow('`host` cannot be an empty string');
+    });
+  });
+
+  describe('version', () => {
+    it('should return the widget\'s version', async () => {
+      const widget = await PresentationWidget.create(mockConfiguration);
+
+      expect(widget.version).toEqual('1.0.0');
     });
   });
 
